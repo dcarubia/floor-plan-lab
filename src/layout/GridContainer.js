@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Fab, Tooltip } from '@material-ui/core';
+import { Fab, Tooltip } from '@material-ui/core';
 import Box from '../components/box';
 import ReactCursorPosition from 'react-cursor-position';
 import '@fortawesome/fontawesome-free/css/all.css';
+import { useSelector } from 'react-redux';
+
 
 const useStyles = makeStyles({
   root: {
@@ -73,7 +75,7 @@ function GridContainer() {
 
           {row.elements.map((box) =>
             <ReactCursorPosition key={box.col} style={{ display: 'inline-block' }}>
-              <Box />
+              <Box boxProps={box} />
             </ReactCursorPosition>
           )}
 
@@ -81,7 +83,7 @@ function GridContainer() {
 
       )}
 
-      <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='left' arrow>
+      <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='top' arrow>
         <Fab variant="extended" size='medium' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
           <span className="far fa-square" style={{ paddingRight: 8 }}></span>
         = 1 sqft

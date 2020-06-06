@@ -47,7 +47,7 @@ function AppBar() {
 
       <Grid item>
         <Typography variant='h5' style={{ fontWeight: 'bold', paddingRight: 32 }}>
-          Floorplanner.io
+          Floorplan.io
         </Typography>
       </Grid>
 
