@@ -1,11 +1,29 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 import './App.css';
+import AppBar from './layout/AppBar';
+import ToolBar from './layout/ToolBar';
+import GridContainer from './layout/GridContainer';
 
 function App() {
-  return (
-    <div className="App">
+  const sheet = [];
 
-    </div>
+  return (
+    <Grid container>
+
+      <Grid item xs={12}>
+        <AppBar />
+      </Grid>
+
+      <Grid item>
+        <ToolBar />
+      </Grid>
+
+      <Grid item xs>
+        <GridContainer />
+      </Grid>
+
+    </Grid>
   );
 }
 
