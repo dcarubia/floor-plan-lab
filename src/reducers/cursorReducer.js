@@ -1,7 +1,8 @@
-import { SET_CURSOR_POSITION } from '../actions/types';
+import { SET_CURSOR_POSITION, SET_MOUSE_DOWN } from '../actions/types';
 
 const initState = {
   position: null,
+  mouseDown: false
 }
 
 const toolReducer = (state = initState, action) => {
@@ -10,6 +11,11 @@ const toolReducer = (state = initState, action) => {
       return {
         ...state,
         position: action.payload
+      }
+    case SET_MOUSE_DOWN:
+      return {
+        ...state,
+        mouseDown: action.payload
       }
     default:
       return state;

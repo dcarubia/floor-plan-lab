@@ -16,8 +16,8 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     fontSize: 18,
     position: 'absolute',
-    bottom: 16,
-    right: 16,
+    bottom: 10,
+    right: 10,
     backgroundColor: '#5d6e7c',
     color: '#fff',
     '&:hover': {
@@ -30,15 +30,15 @@ const useStyles = makeStyles({
 });
 
 /* --------------------------------------------
-Returns an empty grid of size (100 x 100)
+Returns an empty grid of size (50 x 90) should fill most screen sizes
 ----------------------------------------------- */
 const initializeSheet = () => {
   const rows = [];
   // Create 100 rows
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 50; i++) {
 
     const curRow = [];
-    for (let j = 0; j < 100; j++) {
+    for (let j = 0; j < 90; j++) {
       // Create 100 boxes in each row
       curRow.push({
         row: i,
@@ -84,7 +84,7 @@ function GridContainer() {
       )}
 
       <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='top' arrow>
-        <Fab variant="extended" size='medium' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
+        <Fab variant="extended" size='small' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
           <span className="far fa-square" style={{ paddingRight: 8 }}></span>
         = 1 sqft
       </Fab>

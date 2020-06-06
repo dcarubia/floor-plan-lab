@@ -1,7 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Fab, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { setMouseDown } from '../actions/cursorActions'
 
 const useStyles = makeStyles({
   paper: {
@@ -13,8 +14,28 @@ const useStyles = makeStyles({
 });
 
 function CoordinateToolTip() {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const cursorPosition = useSelector(state => state.cursor.position);
+
+  const handleMouseDown = () => {
+    dispatch(setMouseDown(true));
+  }
+
+  const handleMouseUp = () => {
+    dispatch(setMouseDown(false));
+  }
+
+  React.useEffect(() => {
+    // add when mounted
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   return (
     <Paper className={classes.paper}>

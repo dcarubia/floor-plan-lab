@@ -1,2 +1,3 @@
 export const SET_TOOL = 'SET_TOOL';
 export const SET_CURSOR_POSITION = 'SET_CURSOR_POSITION';
+export const SET_MOUSE_DOWN = 'SET_MOUSE_DOWN';
