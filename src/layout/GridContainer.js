@@ -5,7 +5,7 @@ import Box from '../components/box';
 import ReactCursorPosition from 'react-cursor-position';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { useSelector } from 'react-redux';
-
+import TextBox from '../components/TextBox';
 
 const useStyles = makeStyles({
   root: {
@@ -13,10 +13,14 @@ const useStyles = makeStyles({
     width: 'calc(100vw - 64px)',
     overflow: 'scroll'
   },
+  container: {
+    position: 'relative',
+    width: 'calc(150 * 23px)'
+  },
   fab: {
     fontWeight: 'bold',
     fontSize: 18,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 10,
     right: 10,
     backgroundColor: '#5d6e7c',
@@ -65,32 +69,35 @@ function GridContainer() {
 
   return (
     <div className={classes.root}>
+      <div className={classes.container}>
 
-      {sheet.map((row) =>
+        {sheet.map((row) =>
 
-        <div key={row.index}
-          style={{
-            whiteSpace: 'nowrap',
-            fontSize: 0
-          }}>
+          <div key={row.index}
+            style={{
+              whiteSpace: 'nowrap',
+              fontSize: 0
+            }}>
 
-          {row.elements.map((box) =>
-            <ReactCursorPosition key={box.col} style={{ display: 'inline-block' }}>
-              <Box boxProps={box} />
-            </ReactCursorPosition>
-          )}
+            {row.elements.map((box) =>
+              <ReactCursorPosition key={box.col} style={{ display: 'inline-block' }}>
+                <Box boxProps={box} />
+              </ReactCursorPosition>
+            )}
 
-        </div>
+          </div>
 
-      )}
+        )}
 
-      <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='top' arrow>
-        <Fab variant="extended" size='small' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
-          <span className="far fa-square" style={{ paddingRight: 8 }}></span>
-        = 1 sqft
-      </Fab>
-      </Tooltip>
+        <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='top' arrow>
+          <Fab variant="extended" size='small' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
+            <span className="far fa-square" style={{ paddingRight: 8 }}></span>
+            = 1 sqft
+          </Fab>
+        </Tooltip>
 
+        <TextBox />
+      </div>
     </div>
   );
 }
