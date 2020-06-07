@@ -4,7 +4,7 @@ import { Grid, IconButton, Button, Tooltip } from '@material-ui/core';
 import '@fortawesome/fontawesome-free/css/all.css';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import { setTool } from '../actions/toolActions';
-import { setAnchor } from '../actions/sheetActions';
+import { setAnchor, updateEdges } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
@@ -46,6 +46,7 @@ function ToolBar() {
   const onClick = toolName => {
     dispatch(setTool(toolName));
     dispatch(setAnchor(null));
+    dispatch(updateEdges([]));
   }
 
   return (

@@ -190,7 +190,7 @@ function Box({ isPositionOutside, boxProps }) {
         }
           :
           isEdge ? {
-            backgroundColor: '#e8eff4',
+            backgroundColor: '#dce4ea',
             borderRight: '1px solid #becddb',
             borderBottom: '1px solid #becddb',
           }
