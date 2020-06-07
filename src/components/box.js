@@ -67,6 +67,48 @@ function Box({ isPositionOutside, boxProps }) {
     return edges;
   }
 
+  const calcRectEdges = (anchorPosition, cursorPosition) => {
+    const edges = [];
+    if (anchorPosition.x !== cursorPosition.x || anchorPosition.y !== cursorPosition.y) {
+      // Anchor and cursor position different
+      for (let i = Math.min(anchorPosition.x, cursorPosition.x); i <= Math.max(anchorPosition.x, cursorPosition.x); i++) {
+        // changing x values, y constant
+        const curPositionAnchor = { x: i, y: anchorPosition.y }
+        const curPositionCursor = { x: i, y: cursorPosition.y }
+        // check current box not anchor or cursor
+        if (curPositionAnchor.x !== anchorPosition.x) {
+          edges.push(curPositionAnchor);
+        }
+        if (curPositionCursor.x !== cursorPosition.x) {
+          edges.push(curPositionCursor);
+        }
+      }
+      for (let i = Math.min(anchorPosition.y, cursorPosition.y) + 1; i < Math.max(anchorPosition.y, cursorPosition.y); i++) {
+        // changing y values, x constant
+        edges.push({ x: anchorPosition.x, y: i });
+        edges.push({ x: cursorPosition.x, y: i });
+      }
+    }
+    return edges;
+  }
+  const calcRectWalls = (anchorPosition, cursorPosition) => {
+    const walls = [];
+    if (anchorPosition.x !== cursorPosition.x || anchorPosition.y !== cursorPosition.y) {
+      // Anchor and cursor position different
+      for (let i = Math.min(anchorPosition.x, cursorPosition.x); i <= Math.max(anchorPosition.x, cursorPosition.x); i++) {
+        // changing x values, y constant
+        walls.push({ x: i, y: anchorPosition.y });
+        walls.push({ x: i, y: cursorPosition.y });
+      }
+      for (let i = Math.min(anchorPosition.y, cursorPosition.y) + 1; i < Math.max(anchorPosition.y, cursorPosition.y); i++) {
+        // changing y values, x constant
+        walls.push({ x: anchorPosition.x, y: i });
+        walls.push({ x: cursorPosition.x, y: i });
+      }
+    }
+    return walls;
+  }
+
   React.useEffect(() => {
     if (setWall) {
       setIsWall(true);
@@ -84,6 +126,8 @@ function Box({ isPositionOutside, boxProps }) {
         // Currently building a shape, must calculate edges
         if (currentTool === 'LINE') {
           dispatch(updateEdges(calcLineEdges(anchor, { x: boxProps.row, y: boxProps.col })))
+        } else if (currentTool === 'RECTANGLE') {
+          dispatch(updateEdges(calcRectEdges(anchor, { x: boxProps.row, y: boxProps.col })))
         }
       }
       if (getMouseDown()) {
@@ -113,6 +157,15 @@ function Box({ isPositionOutside, boxProps }) {
           dispatch(setAnchor({ x: boxProps.row, y: boxProps.col }))
         } else {
           dispatch(updateWalls(calcLineWalls(anchor, { x: boxProps.row, y: boxProps.col })))
+          dispatch(setAnchor(null))
+        }
+        break;
+      case 'RECTANGLE':
+        const anchorR = getAnchor();
+        if (!anchorR) {
+          dispatch(setAnchor({ x: boxProps.row, y: boxProps.col }))
+        } else {
+          dispatch(updateWalls(calcRectWalls(anchorR, { x: boxProps.row, y: boxProps.col })))
           dispatch(setAnchor(null))
         }
         break;
@@ -148,7 +201,6 @@ function Box({ isPositionOutside, boxProps }) {
             }
               :
               {
-                backgroundColor: '#ccdcea',
                 backgroundColor: '#a8b7c4',
                 borderRight: '1px solid #becddb',
                 borderBottom: '1px solid #becddb',

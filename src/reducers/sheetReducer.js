@@ -59,6 +59,7 @@ const toolReducer = (state = initState, action) => {
         ...state,
         data: {
           ...state.data,
+          edges: initializeSheet(),
           walls: newWalls
         }
       }
