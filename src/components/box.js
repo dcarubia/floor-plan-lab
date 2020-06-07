@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { setCursorPosition } from '../actions/cursorActions';
+import { setAnchor, updateEdges, updateWalls } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getState } from '../index';
 
@@ -18,6 +19,9 @@ function Box({ isPositionOutside, boxProps }) {
   const dispatch = useDispatch();
   const [positionOutside, setPositionOutside] = React.useState(isPositionOutside);
   const [isWall, setIsWall] = React.useState(boxProps.isWall);
+  const isEdge = useSelector(state => state.sheet.data.edges[boxProps.row][boxProps.col]);
+  const setWall = useSelector(state => state.sheet.data.walls[boxProps.row][boxProps.col]);
+  const isAnchor = useSelector(state => state.sheet.data.anchors[boxProps.row][boxProps.col]);
 
   const getMouseDown = () => {
     return getState().cursor.mouseDown;
@@ -27,11 +31,62 @@ function Box({ isPositionOutside, boxProps }) {
     return getState().tool.current;
   }
 
+  const getAnchor = () => {
+    return getState().sheet.anchor;
+  }
+
+  // Returns an array of position objects representing each box that is part of the line
+  const calcLineEdges = (anchorPosition, cursorPosition) => {
+    const edges = [];
+    if (anchorPosition.x === cursorPosition.x && anchorPosition.y !== cursorPosition.y) {
+      // Vertical line with length > 0
+      for (let i = Math.min(anchorPosition.y, cursorPosition.y) + 1; i < Math.max(anchorPosition.y, cursorPosition.y); i++) {
+        edges.push({ x: anchorPosition.x, y: i });
+      }
+    } else if (anchorPosition.y === cursorPosition.y && anchorPosition.x !== cursorPosition.x) {
+      // Horizontal line with length > 0
+      for (let i = Math.min(anchorPosition.x, cursorPosition.x) + 1; i < Math.max(anchorPosition.x, cursorPosition.x); i++) {
+        edges.push({ x: i, y: anchorPosition.y });
+      }
+    }
+    return edges;
+  }
+  const calcLineWalls = (anchorPosition, cursorPosition) => {
+    const edges = [];
+    if (anchorPosition.x === cursorPosition.x && anchorPosition.y !== cursorPosition.y) {
+      // Vertical line with length > 0
+      for (let i = Math.min(anchorPosition.y, cursorPosition.y); i <= Math.max(anchorPosition.y, cursorPosition.y); i++) {
+        edges.push({ x: anchorPosition.x, y: i });
+      }
+    } else if (anchorPosition.y === cursorPosition.y && anchorPosition.x !== cursorPosition.x) {
+      // Horizontal line with length > 0
+      for (let i = Math.min(anchorPosition.x, cursorPosition.x); i <= Math.max(anchorPosition.x, cursorPosition.x); i++) {
+        edges.push({ x: i, y: anchorPosition.y });
+      }
+    }
+    return edges;
+  }
+
+  React.useEffect(() => {
+    if (setWall) {
+      setIsWall(true);
+    }
+  }, [setWall])
+
   React.useEffect(() => {
     if (!isPositionOutside) {
+      // Cursor is inside box
+      const currentTool = getCurrentTool();
+      const anchor = getAnchor();
+      // Dispatch cursor position (add 1 to zero based index)
       dispatch(setCursorPosition({ x: boxProps.row + 1, y: boxProps.col + 1 }))
+      if (anchor) {
+        // Currently building a shape, must calculate edges
+        if (currentTool === 'LINE') {
+          dispatch(updateEdges(calcLineEdges(anchor, { x: boxProps.row, y: boxProps.col })))
+        }
+      }
       if (getMouseDown()) {
-        const currentTool = getCurrentTool();
         if (currentTool === 'DRAW') {
           setIsWall(true);
         }
@@ -45,11 +100,26 @@ function Box({ isPositionOutside, boxProps }) {
 
   const onMouseDown = () => {
     const currentTool = getCurrentTool();
-    if (currentTool === 'DRAW') {
-      setIsWall(true);
-    } else if (currentTool === 'ERASE') {
-      setIsWall(false);
+    switch (currentTool) {
+      case 'DRAW':
+        setIsWall(true);
+        break;
+      case 'ERASE':
+        setIsWall(false);
+        break;
+      case 'LINE':
+        const anchor = getAnchor();
+        if (!anchor) {
+          dispatch(setAnchor({ x: boxProps.row, y: boxProps.col }))
+        } else {
+          dispatch(updateWalls(calcLineWalls(anchor, { x: boxProps.row, y: boxProps.col })))
+          dispatch(setAnchor(null))
+        }
+        break;
+      default:
+        return
     }
+
   }
 
   return (
@@ -59,17 +129,30 @@ function Box({ isPositionOutside, boxProps }) {
         borderRight: '1px solid #000',
         borderBottom: '1px solid #000',
       }
-
-        : positionOutside ? {
-          borderRight: '1px solid #becddb',
-          borderBottom: '1px solid #becddb',
+        :
+        isAnchor ? {
+          backgroundColor: '#a8b7c4',
+          borderRight: '1px solid #a3b9cc',
+          borderBottom: '1px solid #a3b9cc',
         }
-
-          : {
-            backgroundColor: '#ccdcea',
+          :
+          isEdge ? {
+            backgroundColor: '#e8eff4',
             borderRight: '1px solid #becddb',
             borderBottom: '1px solid #becddb',
           }
+            :
+            positionOutside ? {
+              borderRight: '1px solid #becddb',
+              borderBottom: '1px solid #becddb',
+            }
+              :
+              {
+                backgroundColor: '#ccdcea',
+                backgroundColor: '#a8b7c4',
+                borderRight: '1px solid #becddb',
+                borderBottom: '1px solid #becddb',
+              }
     }
       onMouseDown={onMouseDown}
     >

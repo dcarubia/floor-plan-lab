@@ -44,7 +44,9 @@ const initializeSheet = () => {
       curRow.push({
         row: i,
         col: j,
-        isWall: false
+        isWall: false,
+        isAnchor: false,
+        isEdge: false
       })
     }
     // add current row to rows array
@@ -68,7 +70,6 @@ function GridContainer() {
 
         <div key={row.index}
           style={{
-
             whiteSpace: 'nowrap',
             fontSize: 0
           }}>
