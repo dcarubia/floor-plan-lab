@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux';
 const useStyles = makeStyles({
   root: {
     height: 'calc(100vh - 56px)',
-    overflow: 'hidden'
+    width: 'calc(100vw - 64px)',
+    overflow: 'scroll'
   },
   fab: {
     fontWeight: 'bold',
@@ -30,15 +31,15 @@ const useStyles = makeStyles({
 });
 
 /* --------------------------------------------
-Returns an empty grid of size (50 x 90) should fill most screen sizes
+Returns an empty grid of size (100 x 150)
 ----------------------------------------------- */
 const initializeSheet = () => {
   const rows = [];
   // Create 100 rows
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
 
     const curRow = [];
-    for (let j = 0; j < 90; j++) {
+    for (let j = 0; j < 150; j++) {
       // Create 100 boxes in each row
       curRow.push({
         row: i,
@@ -67,8 +68,7 @@ function GridContainer() {
 
         <div key={row.index}
           style={{
-            width: 'calc(100vw - 64px)',
-            overflowX: 'hidden',
+
             whiteSpace: 'nowrap',
             fontSize: 0
           }}>

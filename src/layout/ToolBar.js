@@ -66,6 +66,15 @@ function ToolBar() {
         </Button>
       </Tooltip>
 
+      <Tooltip title={<span className={classes.toolTip}>Erase</span>} placement='right' arrow>
+        <Button size='small'
+          onClick={() => onClick('ERASE')}
+          className={currentTool === 'ERASE' ? classes.activeButton : classes.button}
+        >
+          <span className="fas fa-eraser"></span>
+        </Button>
+      </Tooltip>
+
       <Tooltip title={<span className={classes.toolTip}>Line</span>} placement='right' arrow>
         <Button size='small'
           onClick={() => onClick('LINE')}
@@ -75,21 +84,12 @@ function ToolBar() {
         </Button>
       </Tooltip>
 
-      <Tooltip title={<span className={classes.toolTip}>Square</span>} placement='right' arrow>
+      <Tooltip title={<span className={classes.toolTip}>Rectangle</span>} placement='right' arrow>
         <Button size='small'
-          onClick={() => onClick('SQUARE')}
-          className={currentTool === 'SQUARE' ? classes.activeButton : classes.button}
+          onClick={() => onClick('RECTANGLE')}
+          className={currentTool === 'RECTANGLE' ? classes.activeButton : classes.button}
         >
           <span className="fas fa-vector-square"></span>
-        </Button>
-      </Tooltip>
-
-      <Tooltip title={<span className={classes.toolTip}>Erase</span>} placement='right' arrow>
-        <Button size='small'
-          onClick={() => onClick('ERASE')}
-          className={currentTool === 'ERASE' ? classes.activeButton : classes.button}
-        >
-          <span className="fas fa-eraser"></span>
         </Button>
       </Tooltip>
 
