@@ -89,8 +89,8 @@ function Box({ isPositionOutside, boxProps }) {
       // Anchor and cursor position different
 
       // Get shape info
-      const width = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1) * scale;
-      const height = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1) * scale;
+      const height = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1) * scale;
+      const width = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1) * scale;
       const area = (width - 2) * (height - 2);
       shape = {
         type: 'RECTANGLE',

@@ -1,17 +1,19 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Fab, Paper } from '@material-ui/core';
+import { Fab, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { setMouseDown } from '../actions/cursorActions';
 import MouseTooltip from 'react-sticky-mouse-tooltip';
 
 const useStyles = makeStyles({
-  paper: {
-    padding: '6px 12px 6px 12px',
-    position: 'absolute',
-    bottom: 0,
-    left: 64,
+  container: {
+    padding: 4,
+    backgroundColor: '#fff'
   },
+  p: {
+    margin: 0,
+    padding: '0px 0px 8px 0px'
+  }
 });
 
 function MouseToolTip() {
@@ -55,13 +57,31 @@ function MouseToolTip() {
             offsetX={15}
             offsetY={10}
           >
-            <span>{shape.type === 'LINE' ?
-              getFeet(shape.len) + '\'' + getInches(shape.len) + '\"'
-              :
-              getFeet(shape.width) + '\'' + getInches(shape.width) + '\" x ' +
-              getFeet(shape.height) + '\'' + getInches(shape.height) + '\", Interior: ' +
-              shape.area + ' sqft'
-            }</span>
+            <div className={classes.container}>
+              {shape.type === 'LINE' ?
+                <span>
+                  <strong>
+                    {getFeet(shape.len) + '\'' + getInches(shape.len) + '\"'}
+                  </strong>
+                </span>
+                :
+                <div>
+                  <p className={classes.p}>
+                    <span>
+                      {'w: '}
+                      <strong>{getFeet(shape.width) + '\'' + getInches(shape.width) + '\"'}</strong>
+                      {', h: '}
+                      <strong>{getFeet(shape.height) + '\'' + getInches(shape.height) + '\"'}</strong>
+                    </span>
+                  </p>
+                  <p className={classes.p}>
+                    <span>
+                      {'Area (interior): '} <strong>{shape.area}</strong> {' sqft'}
+                    </span>
+                  </p>
+                </div>
+              }
+            </div>
           </MouseTooltip >
           : null
       }
