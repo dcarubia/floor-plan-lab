@@ -5,6 +5,7 @@ import AppBar from './layout/AppBar';
 import ToolBar from './layout/ToolBar';
 import GridContainer from './layout/GridContainer';
 import CoordinateToolTip from './components/CoordinateToolTip';
+import MouseToolTip from './components/MouseToolTip';
 
 function App() {
   const sheet = [];
@@ -27,6 +28,7 @@ function App() {
       </Grid>
 
       <CoordinateToolTip />
+      <MouseToolTip />
     </div>
   );
 }

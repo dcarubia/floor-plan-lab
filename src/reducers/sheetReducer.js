@@ -1,4 +1,4 @@
-import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT } from '../actions/types';
+import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT, SET_CUR_SHAPE } from '../actions/types';
 
 const initializeSheet = () => {
   const rows = [];
@@ -16,6 +16,8 @@ const initializeSheet = () => {
 };
 
 const initState = {
+  scale: 1.0,
+  curShape: null,
   text: [],
   anchor: null,
   data: {
@@ -25,8 +27,13 @@ const initState = {
   }
 }
 
-const toolReducer = (state = initState, action) => {
+const sheetReducer = (state = initState, action) => {
   switch (action.type) {
+    case SET_CUR_SHAPE:
+      return {
+        ...state,
+        curShape: action.payload
+      }
     case ADD_TEXT:
       return {
         ...state,
@@ -81,4 +88,4 @@ const toolReducer = (state = initState, action) => {
   }
 }
 
-export default toolReducer;
+export default sheetReducer;

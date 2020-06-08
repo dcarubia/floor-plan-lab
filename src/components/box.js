@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { setCursorPosition } from '../actions/cursorActions';
-import { setAnchor, updateEdges, updateWalls } from '../actions/sheetActions';
+import { setAnchor, updateEdges, updateWalls, setCurShape } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getState } from '../index';
 
@@ -35,21 +35,34 @@ function Box({ isPositionOutside, boxProps }) {
     return getState().sheet.anchor;
   }
 
-  // Returns an array of position objects representing each box that is part of the line
-  const calcLineEdges = (anchorPosition, cursorPosition) => {
+  // Returns an object with props:
+  // edges = array of position objects representing each box that is part of the line
+  // shape = object containing shape info
+  const calcLine = (anchorPosition, cursorPosition) => {
+    const scale = getState().sheet.scale;
     const edges = [];
+    var shape = null;
     if (anchorPosition.x === cursorPosition.x && anchorPosition.y !== cursorPosition.y) {
       // Vertical line with length > 0
+      const len = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1) * scale;
+      shape = {
+        type: 'LINE',
+        len
+      }
       for (let i = Math.min(anchorPosition.y, cursorPosition.y) + 1; i < Math.max(anchorPosition.y, cursorPosition.y); i++) {
         edges.push({ x: anchorPosition.x, y: i });
       }
     } else if (anchorPosition.y === cursorPosition.y && anchorPosition.x !== cursorPosition.x) {
       // Horizontal line with length > 0
+      shape = {
+        type: 'LINE',
+        len: Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x)
+      }
       for (let i = Math.min(anchorPosition.x, cursorPosition.x) + 1; i < Math.max(anchorPosition.x, cursorPosition.x); i++) {
         edges.push({ x: i, y: anchorPosition.y });
       }
     }
-    return edges;
+    return { edges, shape };
   }
   const calcLineWalls = (anchorPosition, cursorPosition) => {
     const edges = [];
@@ -67,10 +80,25 @@ function Box({ isPositionOutside, boxProps }) {
     return edges;
   }
 
-  const calcRectEdges = (anchorPosition, cursorPosition) => {
+  const calcRect = (anchorPosition, cursorPosition) => {
+    const scale = getState().sheet.scale;
     const edges = [];
+    var shape = null;
     if (anchorPosition.x !== cursorPosition.x || anchorPosition.y !== cursorPosition.y) {
       // Anchor and cursor position different
+
+      // Get shape info
+      const width = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1) * scale;
+      const height = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1) * scale;
+      const area = (width - 2) * (height - 2);
+      shape = {
+        type: 'RECTANGLE',
+        width,
+        height,
+        area: area >= 0 ? area : 0
+      }
+
+      // Get edges
       for (let i = Math.min(anchorPosition.x, cursorPosition.x); i <= Math.max(anchorPosition.x, cursorPosition.x); i++) {
         // changing x values, y constant
         const curPositionAnchor = { x: i, y: anchorPosition.y }
@@ -89,7 +117,7 @@ function Box({ isPositionOutside, boxProps }) {
         edges.push({ x: cursorPosition.x, y: i });
       }
     }
-    return edges;
+    return { edges, shape };
   }
   const calcRectWalls = (anchorPosition, cursorPosition) => {
     const walls = [];
@@ -125,9 +153,13 @@ function Box({ isPositionOutside, boxProps }) {
       if (anchor) {
         // Currently building a shape, must calculate edges
         if (currentTool === 'LINE') {
-          dispatch(updateEdges(calcLineEdges(anchor, { x: boxProps.row, y: boxProps.col })))
+          const line = calcLine(anchor, { x: boxProps.row, y: boxProps.col });
+          dispatch(updateEdges(line.edges));
+          dispatch(setCurShape(line.shape));
         } else if (currentTool === 'RECTANGLE') {
-          dispatch(updateEdges(calcRectEdges(anchor, { x: boxProps.row, y: boxProps.col })))
+          const rect = calcRect(anchor, { x: boxProps.row, y: boxProps.col });
+          dispatch(updateEdges(rect.edges));
+          dispatch(setCurShape(rect.shape));
         }
       }
       if (getMouseDown()) {
@@ -158,6 +190,7 @@ function Box({ isPositionOutside, boxProps }) {
         } else {
           dispatch(updateWalls(calcLineWalls(anchor, { x: boxProps.row, y: boxProps.col })))
           dispatch(setAnchor(null))
+          dispatch(setCurShape(null))
         }
         break;
       case 'RECTANGLE':
@@ -167,6 +200,7 @@ function Box({ isPositionOutside, boxProps }) {
         } else {
           dispatch(updateWalls(calcRectWalls(anchorR, { x: boxProps.row, y: boxProps.col })))
           dispatch(setAnchor(null))
+          dispatch(setCurShape(null))
         }
         break;
       default:

@@ -6,3 +6,4 @@ export const UPDATE_EDGES = 'UPDATE_EDGES';
 export const UPDATE_WALLS = 'UPDATE_WALLS';
 export const ADD_TEXT = 'ADD_TEXT';
 export const DELETE_TEXT = 'DELETE_TEXT';
+export const SET_CUR_SHAPE = 'SET_CUR_SHAPE';

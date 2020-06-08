@@ -11,7 +11,7 @@ import { deleteText } from '../actions/sheetActions';
 const useStyles = makeStyles({
   root: {
     backgroundColor: '#fafafa',
-    padding: '9px 10px 0px 0px',
+    padding: '9px 12px 0px 0px',
     position: 'absolute',
     height: 36,
     top: 23 * 2,
@@ -77,9 +77,10 @@ function TextBox({ id }) {
       <div className={classes.root} ref={containerRef}>
         <Grid container>
           <Grid item>
-            <div className='handle'>
-              <DragIndicatorIcon style={{ paddingRight: 4, color: '#aaa' }} />
-            </div>
+            {editMode ?
+              <div className='handle'>
+                <DragIndicatorIcon style={{ paddingRight: 4, color: '#aaa' }} />
+              </div> : <div style={{ paddingRight: 12 }}></div>}
           </Grid>
 
           <Grid item>
