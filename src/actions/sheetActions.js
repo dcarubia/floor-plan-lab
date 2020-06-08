@@ -1,4 +1,19 @@
-import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS } from './types';
+import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT } from './types';
+import { v4 as uuidv4 } from 'uuid';
+
+export const addText = (type) => {
+  return {
+    type: ADD_TEXT,
+    payload: uuidv4()
+  }
+}
+
+export const deleteText = (index) => {
+  return {
+    type: DELETE_TEXT,
+    payload: index
+  }
+}
 
 export const setAnchor = (position) => {
   return {

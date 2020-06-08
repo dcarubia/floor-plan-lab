@@ -96,15 +96,6 @@ function ToolBar() {
         </Button>
       </Tooltip>
 
-      <Tooltip title={<span className={classes.toolTip}>Text</span>} placement='right' arrow>
-        <Button size='small'
-          onClick={() => onClick('TEXT')}
-          className={currentTool === 'TEXT' ? classes.activeButton : classes.button}
-        >
-          <span className="fas fa-font"></span>
-        </Button>
-      </Tooltip>
-
       <Tooltip title={<span className={classes.toolTip}>Measure</span>} placement='right' arrow>
         <Button size='small'
           onClick={() => onClick('MEASURE')}

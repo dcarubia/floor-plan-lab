@@ -1,4 +1,4 @@
-import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS } from '../actions/types';
+import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT } from '../actions/types';
 
 const initializeSheet = () => {
   const rows = [];
@@ -16,6 +16,7 @@ const initializeSheet = () => {
 };
 
 const initState = {
+  text: [],
   anchor: null,
   data: {
     anchors: initializeSheet(),
@@ -26,12 +27,23 @@ const initState = {
 
 const toolReducer = (state = initState, action) => {
   switch (action.type) {
+    case ADD_TEXT:
+      return {
+        ...state,
+        text: [...state.text, action.payload]
+      }
+    case DELETE_TEXT:
+      return {
+        ...state,
+        text: state.text.filter(el => el !== action.payload)
+      }
     case SET_ANCHOR:
       const newAnchors = initializeSheet();
       if (action.payload) {
         newAnchors[action.payload.x][action.payload.y] = true;
       }
       return {
+        ...state,
         data: {
           ...state.data,
           anchors: newAnchors

@@ -5,7 +5,7 @@ import Box from '../components/box';
 import ReactCursorPosition from 'react-cursor-position';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { useSelector } from 'react-redux';
-import TextBox from '../components/TextBox';
+import TextContainer from '../components/TextContainer';
 
 const useStyles = makeStyles({
   root: {
@@ -96,7 +96,7 @@ function GridContainer() {
           </Fab>
         </Tooltip>
 
-        <TextBox />
+        <TextContainer />
       </div>
     </div>
   );
