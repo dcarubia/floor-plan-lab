@@ -38,6 +38,14 @@ function MouseToolTip() {
     };
   }, []);
 
+  const getFeet = (len) => {
+    return Math.floor(len);
+  }
+
+  const getInches = (len) => {
+    return (len % Math.floor(len)) * 12;
+  }
+
   return (
     <>
       {
@@ -48,9 +56,11 @@ function MouseToolTip() {
             offsetY={10}
           >
             <span>{shape.type === 'LINE' ?
-              shape.len + '\''
+              getFeet(shape.len) + '\'' + getInches(shape.len) + '\"'
               :
-              shape.width + '\' x ' + shape.height + '\', Interior: ' + shape.area + ' sqft'
+              getFeet(shape.width) + '\'' + getInches(shape.width) + '\" x ' +
+              getFeet(shape.height) + '\'' + getInches(shape.height) + '\", Interior: ' +
+              shape.area + ' sqft'
             }</span>
           </MouseTooltip >
           : null

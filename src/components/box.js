@@ -54,9 +54,10 @@ function Box({ isPositionOutside, boxProps }) {
       }
     } else if (anchorPosition.y === cursorPosition.y && anchorPosition.x !== cursorPosition.x) {
       // Horizontal line with length > 0
+      const len = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1) * scale;
       shape = {
         type: 'LINE',
-        len: Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x)
+        len
       }
       for (let i = Math.min(anchorPosition.x, cursorPosition.x) + 1; i < Math.max(anchorPosition.x, cursorPosition.x); i++) {
         edges.push({ x: i, y: anchorPosition.y });
