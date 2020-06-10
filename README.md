@@ -1,2 +1,2 @@
 # easy-floorplan
-Virtual graph paper to easily design simple floor plans
+Virtual graph paper to easily design awesome floor plans
