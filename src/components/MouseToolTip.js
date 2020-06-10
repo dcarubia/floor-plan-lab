@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Fab, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { setMouseDown } from '../actions/cursorActions';
+import { deleteWalls, createWalls } from '../actions/sheetActions';
 import MouseTooltip from 'react-sticky-mouse-tooltip';
+import { getState } from '../index';
 
 const useStyles = makeStyles({
   container: {
@@ -29,14 +31,28 @@ function MouseToolTip() {
     dispatch(setMouseDown(false));
   }
 
+  const handleKeyDown = event => {
+    if (getState().tool.current === 'SELECT') {
+      if (event.which === 8) {
+        // backspace
+        dispatch(deleteWalls());
+      } else if (event.which === 87) {
+        // key w (wall)
+        dispatch(createWalls());
+      }
+    }
+  }
+
   React.useEffect(() => {
     // add when mounted
     document.addEventListener("mousedown", handleMouseDown);
     document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("keydown", handleKeyDown);
     // return function to be called when unmounted
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
       document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -76,7 +92,7 @@ function MouseToolTip() {
                   </p>
                   <p className={classes.p}>
                     <span>
-                      {'Area (interior): '} <strong>{shape.area}</strong> {' sqft'}
+                      {'Area (inside): '} <strong>{shape.area}</strong> {' sqft'}
                     </span>
                   </p>
                 </div>

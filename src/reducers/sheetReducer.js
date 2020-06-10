@@ -1,4 +1,14 @@
-import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT, SET_CUR_SHAPE } from '../actions/types';
+import {
+  SET_ANCHOR,
+  UPDATE_EDGES,
+  UPDATE_WALLS,
+  ADD_TEXT,
+  DELETE_TEXT,
+  SET_CUR_SHAPE,
+  UPDATE_SELECTED,
+  DELETE_WALLS,
+  CREATE_WALLS
+} from '../actions/types';
 
 const initializeSheet = () => {
   const rows = [];
@@ -7,7 +17,7 @@ const initializeSheet = () => {
     const curRow = [];
     for (let j = 0; j < 150; j++) {
       // Create 100 items in each row
-      curRow.push(false)
+      curRow.push(null)
     }
     // add current row to rows array
     rows.push(curRow);
@@ -24,6 +34,7 @@ const initState = {
     anchors: initializeSheet(),
     walls: initializeSheet(),
     edges: initializeSheet(),
+    selected: initializeSheet()
   }
 }
 
@@ -81,6 +92,48 @@ const sheetReducer = (state = initState, action) => {
           ...state.data,
           edges: initializeSheet(),
           walls: newWalls
+        }
+      }
+    case DELETE_WALLS:
+      const newWalls1 = [];
+      for (let r = 0; r < state.data.selected.length; r++) {
+        const row = [];
+        for (let c = 0; c < state.data.selected[0].length; c++) {
+          if (state.data.selected[r][c]) { row.push(false); }
+          else { row.push(null); }
+        }
+        newWalls1.push(row);
+      }
+      return {
+        ...state,
+        anchor: null,
+        data: {
+          ...state.data,
+          selected: initializeSheet(),
+          walls: newWalls1
+        }
+      }
+    case CREATE_WALLS:
+      const newWalls2 = state.data.selected;
+      return {
+        ...state,
+        anchor: null,
+        data: {
+          ...state.data,
+          selected: initializeSheet(),
+          walls: newWalls2
+        }
+      }
+    case UPDATE_SELECTED:
+      const newSelected = initializeSheet();
+      action.payload.forEach(selPosition => {
+        newSelected[selPosition.x][selPosition.y] = true;
+      });
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          selected: newSelected
         }
       }
     default:

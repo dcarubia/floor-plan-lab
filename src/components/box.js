@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { setCursorPosition } from '../actions/cursorActions';
-import { setAnchor, updateEdges, updateWalls, setCurShape } from '../actions/sheetActions';
+import { setAnchor, updateEdges, updateWalls, setCurShape, updateSelected } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getState } from '../index';
 
@@ -22,6 +22,7 @@ function Box({ isPositionOutside, boxProps }) {
   const isEdge = useSelector(state => state.sheet.data.edges[boxProps.row][boxProps.col]);
   const setWall = useSelector(state => state.sheet.data.walls[boxProps.row][boxProps.col]);
   const isAnchor = useSelector(state => state.sheet.data.anchors[boxProps.row][boxProps.col]);
+  const isSelected = useSelector(state => state.sheet.data.selected[boxProps.row][boxProps.col]);
 
   const getMouseDown = () => {
     return getState().cursor.mouseDown;
@@ -138,9 +139,25 @@ function Box({ isPositionOutside, boxProps }) {
     return walls;
   }
 
+  const calcSelected = (anchorPosition, cursorPosition) => {
+    const selected = [];
+    if (anchorPosition.x !== cursorPosition.x || anchorPosition.y !== cursorPosition.y) {
+      // Anchor and cursor position different
+      // Get selected boxes
+      for (let i = Math.min(anchorPosition.x, cursorPosition.x); i <= Math.max(anchorPosition.x, cursorPosition.x); i++) {
+        for (let j = Math.min(anchorPosition.y, cursorPosition.y); j <= Math.max(anchorPosition.y, cursorPosition.y); j++) {
+          selected.push({ x: i, y: j });
+        }
+      }
+    }
+    return selected;
+  }
+
   React.useEffect(() => {
     if (setWall) {
       setIsWall(true);
+    } else if (setWall === false) {
+      setIsWall(false);
     }
   }, [setWall])
 
@@ -157,10 +174,18 @@ function Box({ isPositionOutside, boxProps }) {
           const line = calcLine(anchor, { x: boxProps.row, y: boxProps.col });
           dispatch(updateEdges(line.edges));
           dispatch(setCurShape(line.shape));
+
         } else if (currentTool === 'RECTANGLE') {
           const rect = calcRect(anchor, { x: boxProps.row, y: boxProps.col });
           dispatch(updateEdges(rect.edges));
           dispatch(setCurShape(rect.shape));
+
+        } else if (currentTool === 'SELECT') {
+          // make sure mouse is depressed
+          const isDepressed = getState().cursor.mouseDown;
+          if (isDepressed) {
+            dispatch(updateSelected(calcSelected(anchor, { x: boxProps.row, y: boxProps.col })));
+          }
         }
       }
       if (getMouseDown()) {
@@ -204,6 +229,10 @@ function Box({ isPositionOutside, boxProps }) {
           dispatch(setCurShape(null))
         }
         break;
+      case 'SELECT':
+        dispatch(setAnchor({ x: boxProps.row, y: boxProps.col }))
+        dispatch(updateSelected([]));
+        break;
       default:
         return
     }
@@ -212,34 +241,51 @@ function Box({ isPositionOutside, boxProps }) {
 
   return (
     <div className={classes.root} style={
-      isWall ? {
-        backgroundColor: '#000',
-        borderRight: '1px solid #000',
-        borderBottom: '1px solid #000',
-      }
+      isWall ?
+        (isSelected ?
+          // SELECTED WALL
+          {
+            backgroundColor: '#305272',
+            borderRight: '1px solid #305272',
+            borderBottom: '1px solid #305272',
+          }
+          :
+          // REGULAR WALL
+          {
+            backgroundColor: '#000',
+            borderRight: '1px solid #000',
+            borderBottom: '1px solid #000',
+          })
         :
-        isAnchor ? {
-          backgroundColor: '#a8b7c4',
-          borderRight: '1px solid #a3b9cc',
-          borderBottom: '1px solid #a3b9cc',
+        isSelected ? {
+          backgroundColor: '#d3eaff',
+          borderRight: '1px solid #becddb',
+          borderBottom: '1px solid #becddb',
         }
           :
-          isEdge ? {
-            backgroundColor: '#dce4ea',
-            borderRight: '1px solid #becddb',
-            borderBottom: '1px solid #becddb',
+          isAnchor && getCurrentTool() != 'SELECT' ? {
+            backgroundColor: '#a8b7c4',
+            borderRight: '1px solid #a3b9cc',
+            borderBottom: '1px solid #a3b9cc',
           }
             :
-            positionOutside ? {
+            isEdge ? {
+              backgroundColor: '#dce4ea',
               borderRight: '1px solid #becddb',
               borderBottom: '1px solid #becddb',
             }
               :
-              {
-                backgroundColor: '#a8b7c4',
+
+              positionOutside ? {
                 borderRight: '1px solid #becddb',
                 borderBottom: '1px solid #becddb',
               }
+                :
+                {
+                  backgroundColor: '#a8b7c4',
+                  borderRight: '1px solid #becddb',
+                  borderBottom: '1px solid #becddb',
+                }
     }
       onMouseDown={onMouseDown}
     >
