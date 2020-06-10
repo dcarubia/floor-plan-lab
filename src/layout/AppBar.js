@@ -3,20 +3,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Menu, MenuItem } from '@material-ui/core';
 import { addText } from '../actions/sheetActions';
 import { useDispatch } from 'react-redux';
+import logo from '../logo.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const useStyles = makeStyles({
   appBarContainer: {
-    padding: '10px 24px 10px 24px',
+    padding: '0px 24px 0px 20px',
     color: '#fff',
     background: '#24292E',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
     msUserSelect: 'none',
-    height: 56,
+    height: 64,
     borderBottom: '1px solid #000'
   },
   button: {
+    marginTop: 12,
     color: '#fff',
     background: '#43505b',
     '&:hover': {
@@ -24,11 +26,14 @@ const useStyles = makeStyles({
     }
   },
   menuButton: {
-    color: '#fff',
+    color: '#f0f0f0',
+    minWidth: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
     fontSize: 14,
     textTransform: 'none',
     '&:hover': {
-      background: '#5d6e7c',
+      background: '#43505b',
     },
     marginRight: 8
   },
@@ -68,44 +73,49 @@ function AppBar() {
       <Grid container className={classes.appBarContainer}>
 
         <Grid item>
-          <Typography variant='h5' style={{ fontWeight: 'bold', paddingRight: 32 }}>
-            Floorplan.io
-        </Typography>
+          <img src={logo} style={{ height: 38, paddingRight: 18, paddingLeft: 4, paddingTop: 10 }} />
         </Grid>
 
         <Grid item>
-          <Button size='small' className={classes.menuButton}>
-            File
-          <span className="fas fa-chevron-down" style={{ paddingLeft: 8, fontSize: 10 }}></span>
-          </Button>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography variant='h6' style={{ fontWeight: 'bold', paddingLeft: 4 }}>
+                Floorplan.io
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container>
+                <Grid item>
+                  <Button size='small' className={classes.menuButton}>
+                    File
+                  </Button>
+                </Grid>
+
+                <Grid item>
+                  <Button size='small' className={classes.menuButton}>
+                    Place Object
+                  </Button>
+                </Grid>
+
+                <Grid item>
+                  <Button size='small' className={classes.menuButton} onClick={handleClickTextbox}>
+                    Place Text
+                  </Button>
+                </Grid>
+
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
 
-        <Grid item>
-          <Button size='small' className={classes.menuButton}>
-            Edit
-          <span className="fas fa-chevron-down" style={{ paddingLeft: 8, fontSize: 10 }}></span>
-          </Button>
-        </Grid>
 
-        <Grid item>
-          <Button size='small' className={classes.menuButton}>
-            Place Object
-          <span className="fas fa-chevron-down" style={{ paddingLeft: 8, fontSize: 10 }}></span>
-          </Button>
-        </Grid>
-
-        <Grid item>
-          <Button size='small' className={classes.menuButton} onClick={handleClickTextbox}>
-            Place Text
-          <span className="fas fa-chevron-down" style={{ paddingLeft: 8, fontSize: 10 }}></span>
-          </Button>
-        </Grid>
 
         <Grid item xs>
           <div className={classes.justifyRight}>
             <Button className={classes.button} variant='contained' onClick={redirectToSource}>
               View Source
-          </Button>
+            </Button>
           </div>
         </Grid>
       </Grid>
@@ -117,8 +127,8 @@ function AppBar() {
         onClose={handleCloseTextbox}
       >
         <Typography variant='overline' style={{ paddingLeft: 16 }}>Text Style:</Typography>
-        <MenuItem onClick={insertLabel} className={classes.menuItem}>Title</MenuItem>
         <MenuItem onClick={insertLabel} className={classes.menuItem}>Label</MenuItem>
+        <MenuItem onClick={insertLabel} className={classes.menuItem}>Title</MenuItem>
       </Menu>
     </div>
   );

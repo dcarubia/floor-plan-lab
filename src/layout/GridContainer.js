@@ -9,7 +9,7 @@ import TextContainer from '../components/TextContainer';
 
 const useStyles = makeStyles({
   root: {
-    height: 'calc(100vh - 56px)',
+    height: 'calc(100vh - 64px)',
     width: 'calc(100vw - 64px)',
     overflow: 'scroll'
   },

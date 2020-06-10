@@ -11,15 +11,14 @@ const useStyles = makeStyles({
   toolBarContainer: {
     width: 64,
     backgroundColor: '#5d6e7c',
-    height: 'calc(100vh - 56px)',
+    height: 'calc(100vh - 64px)',
     borderTop: '0px solid #000',
   },
   button: {
     color: '#fff',
     fontSize: 20,
     padding: '16px 0px 16px 0px',
-    marginTop: 1,
-    marginBottom: 1,
+    marginTop: 2,
     '&:hover': {
       backgroundColor: '#43505b',
     }
@@ -27,6 +26,7 @@ const useStyles = makeStyles({
   activeButton: {
     color: '#fff',
     fontSize: 20,
+    marginTop: 2,
     padding: '16px 0px 16px 0px',
     '&:hover': {
       backgroundColor: '#43505b',
@@ -94,15 +94,6 @@ function ToolBar() {
           className={currentTool === 'RECTANGLE' ? classes.activeButton : classes.button}
         >
           <span className="fas fa-vector-square"></span>
-        </Button>
-      </Tooltip>
-
-      <Tooltip title={<span className={classes.toolTip}>Measure</span>} placement='right' arrow>
-        <Button size='small'
-          onClick={() => onClick('MEASURE')}
-          className={currentTool === 'MEASURE' ? classes.activeButton : classes.button}
-        >
-          <span className="fas fa-ruler"></span>
         </Button>
       </Tooltip>
 
