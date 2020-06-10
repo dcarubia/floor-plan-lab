@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Menu, MenuItem } from '@material-ui/core';
 import { addText } from '../actions/sheetActions';
 import { useDispatch } from 'react-redux';
-import logo from '../logo.png';
+import logo from '../images/logo.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const useStyles = makeStyles({
