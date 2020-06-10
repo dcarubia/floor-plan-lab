@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   toolBarContainer: {
-    width: 64,
+    width: 54,
     backgroundColor: '#5d6e7c',
     height: 'calc(100vh - 64px)',
     borderTop: '0px solid #000',
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     color: '#fff',
     fontSize: 20,
     padding: '16px 0px 16px 0px',
+    minWidth: 54,
     marginTop: 2,
     '&:hover': {
       backgroundColor: '#43505b',
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
   activeButton: {
     color: '#fff',
     fontSize: 20,
+    minWidth: 54,
     marginTop: 2,
     padding: '16px 0px 16px 0px',
     '&:hover': {

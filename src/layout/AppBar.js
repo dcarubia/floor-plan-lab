@@ -79,8 +79,8 @@ function AppBar() {
         <Grid item>
           <Grid container>
             <Grid item xs={12}>
-              <Typography variant='h6' style={{ fontWeight: 'bold', paddingLeft: 4 }}>
-                Floorplan.io
+              <Typography variant='h6' style={{ fontWeight: 'normal', paddingLeft: 4 }}>
+                Floorplan Lab
               </Typography>
             </Grid>
 

@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     padding: '6px 12px 6px 12px',
     position: 'absolute',
     bottom: 0,
-    left: 64,
+    left: 54,
   },
 });
 
