@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 import { useDispatch } from 'react-redux';
 import { deleteText } from '../actions/sheetActions';
+import { boxSize } from '../config';
 
 const useStyles = makeStyles({
   root: {
@@ -14,8 +15,8 @@ const useStyles = makeStyles({
     padding: '9px 12px 0px 0px',
     position: 'absolute',
     height: 36,
-    top: 23 * 2,
-    left: 23 * 2,
+    top: (boxSize + 1) * 2,
+    left: (boxSize + 1) * 2,
   },
   iconButton: {
     padding: '2px 2px 0px 2px',
@@ -70,7 +71,7 @@ function TextBox({ id }) {
     <Draggable
       handle='.handle'
       bounds="parent"
-      grid={[23, 23]}
+      grid={[(boxSize + 1), (boxSize + 1)]}
       scale={1}
     >
 

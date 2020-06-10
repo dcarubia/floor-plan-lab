@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     outline: 0,
     top: '40%',
     left: '40%',
-    width: 300
+    width: 350
   },
   fab: {
     fontWeight: 'bold',
@@ -77,7 +77,6 @@ function SetScaleModal() {
     const inches = parseInt(inchesInput);
     if (feet > 0 || inches > 0) {
       // Valid number entered
-      console.log(inches);
       dispatch(setScale({ ft: feet, in: inches }));
       setScaleModalOpen(false);
     } else {
@@ -115,7 +114,7 @@ function SetScaleModal() {
                 <Grid item>
                   <Grid container className={classes.inputContainer}>
                     <Grid item>
-                      <NumericInput strict min={0} max={50} size={2} value={feetInput} onChange={(e) => handleFeetInput(e)} />
+                      <NumericInput strict min={0} max={50} size={3} value={feetInput} onChange={(e) => handleFeetInput(e)} />
                     </Grid>
                     <Grid item xs>
                       <Typography style={{ paddingLeft: 4 }}>Feet</Typography>
@@ -126,7 +125,7 @@ function SetScaleModal() {
                 <Grid item>
                   <Grid container className={classes.inputContainer}>
                     <Grid item>
-                      <NumericInput strict min={0} max={12} size={2} value={inchesInput} onChange={(e) => handleInchesInput(e)} />
+                      <NumericInput strict min={0} max={12} size={3} value={inchesInput} onChange={(e) => handleInchesInput(e)} />
                     </Grid>
                     <Grid item xs>
                       <Typography style={{ paddingLeft: 4 }}>Inches</Typography>

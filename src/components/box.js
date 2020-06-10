@@ -5,12 +5,13 @@ import { setCursorPosition } from '../actions/cursorActions';
 import { setAnchor, updateEdges, updateWalls, setCurShape, updateSelected } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getState } from '../index';
+import { boxSize } from '../config';
 
 const useStyles = makeStyles({
   root: {
     padding: 0,
-    height: 22,
-    width: 22,
+    height: boxSize,
+    width: boxSize,
   }
 });
 
