@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Fab, Tooltip } from '@material-ui/core';
+import { Fab, Tooltip, Modal, Paper } from '@material-ui/core';
 import Box from '../components/box';
 import ReactCursorPosition from 'react-cursor-position';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -17,21 +17,7 @@ const useStyles = makeStyles({
     position: 'relative',
     width: 'calc(150 * 23px)'
   },
-  fab: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    position: 'fixed',
-    bottom: 10,
-    right: 10,
-    backgroundColor: '#5d6e7c',
-    color: '#fff',
-    '&:hover': {
-      background: '#758796',
-    }
-  },
-  toolTip: {
-    fontSize: 14,
-  }
+
 });
 
 /* --------------------------------------------
@@ -67,6 +53,7 @@ function GridContainer() {
   const classes = useStyles();
   const [sheet, setSheet] = useState(initializeSheet);
 
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -88,13 +75,6 @@ function GridContainer() {
           </div>
 
         )}
-
-        <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='top' arrow>
-          <Fab variant="extended" size='small' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
-            <span className="far fa-square" style={{ paddingRight: 8 }}></span>
-            = 1 sqft
-          </Fab>
-        </Tooltip>
 
         <TextContainer />
       </div>

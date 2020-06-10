@@ -1,10 +1,17 @@
-import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT, SET_CUR_SHAPE, UPDATE_SELECTED, DELETE_WALLS, CREATE_WALLS } from './types';
+import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT, SET_CUR_SHAPE, UPDATE_SELECTED, DELETE_WALLS, CREATE_WALLS, SET_SCALE } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
 export const addText = (type) => {
   return {
     type: ADD_TEXT,
     payload: uuidv4()
+  }
+}
+
+export const setScale = (num) => {
+  return {
+    type: SET_SCALE,
+    payload: num
   }
 }
 

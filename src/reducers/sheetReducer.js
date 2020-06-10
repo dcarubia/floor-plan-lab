@@ -7,7 +7,8 @@ import {
   SET_CUR_SHAPE,
   UPDATE_SELECTED,
   DELETE_WALLS,
-  CREATE_WALLS
+  CREATE_WALLS,
+  SET_SCALE
 } from '../actions/types';
 
 const initializeSheet = () => {
@@ -26,7 +27,10 @@ const initializeSheet = () => {
 };
 
 const initState = {
-  scale: 1.0,
+  scale: {
+    ft: 1,
+    in: 0
+  },
   curShape: null,
   text: [],
   anchor: null,
@@ -40,6 +44,11 @@ const initState = {
 
 const sheetReducer = (state = initState, action) => {
   switch (action.type) {
+    case SET_SCALE:
+      return {
+        ...state,
+        scale: action.payload
+      }
     case SET_CUR_SHAPE:
       return {
         ...state,

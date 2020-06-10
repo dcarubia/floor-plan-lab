@@ -57,11 +57,11 @@ function MouseToolTip() {
   }, []);
 
   const getFeet = (len) => {
-    return Math.floor(len);
+    return Math.floor(len / 12);
   }
 
   const getInches = (len) => {
-    return (len % Math.floor(len)) * 12;
+    return len % 12;
   }
 
   return (

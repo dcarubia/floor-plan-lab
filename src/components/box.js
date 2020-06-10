@@ -14,6 +14,17 @@ const useStyles = makeStyles({
   }
 });
 
+const getInches = (len) => {
+  const scale = getState().sheet.scale;
+  return len * (scale.ft * 12 + scale.in);
+}
+
+const getArea = (widthIn, heightIn) => {
+  const widthFt = Math.floor(widthIn / 12) + (widthIn % 12) * (1 / 12);
+  const heightFt = Math.floor(heightIn / 12) + (heightIn % 12) * (1 / 12);
+  return (widthFt * heightFt).toFixed(2);
+}
+
 function Box({ isPositionOutside, boxProps }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -40,25 +51,24 @@ function Box({ isPositionOutside, boxProps }) {
   // edges = array of position objects representing each box that is part of the line
   // shape = object containing shape info
   const calcLine = (anchorPosition, cursorPosition) => {
-    const scale = getState().sheet.scale;
     const edges = [];
     var shape = null;
     if (anchorPosition.x === cursorPosition.x && anchorPosition.y !== cursorPosition.y) {
       // Vertical line with length > 0
-      const len = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1) * scale;
+      const len = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1);
       shape = {
         type: 'LINE',
-        len
+        len: getInches(len)
       }
       for (let i = Math.min(anchorPosition.y, cursorPosition.y) + 1; i < Math.max(anchorPosition.y, cursorPosition.y); i++) {
         edges.push({ x: anchorPosition.x, y: i });
       }
     } else if (anchorPosition.y === cursorPosition.y && anchorPosition.x !== cursorPosition.x) {
       // Horizontal line with length > 0
-      const len = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1) * scale;
+      const len = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1);
       shape = {
         type: 'LINE',
-        len
+        len: getInches(len)
       }
       for (let i = Math.min(anchorPosition.x, cursorPosition.x) + 1; i < Math.max(anchorPosition.x, cursorPosition.x); i++) {
         edges.push({ x: i, y: anchorPosition.y });
@@ -83,20 +93,19 @@ function Box({ isPositionOutside, boxProps }) {
   }
 
   const calcRect = (anchorPosition, cursorPosition) => {
-    const scale = getState().sheet.scale;
     const edges = [];
     var shape = null;
     if (anchorPosition.x !== cursorPosition.x || anchorPosition.y !== cursorPosition.y) {
       // Anchor and cursor position different
 
       // Get shape info
-      const height = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1) * scale;
-      const width = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1) * scale;
-      const area = (width - 2) * (height - 2);
+      const height = (Math.max(anchorPosition.x, cursorPosition.x) - Math.min(anchorPosition.x, cursorPosition.x) + 1);
+      const width = (Math.max(anchorPosition.y, cursorPosition.y) - Math.min(anchorPosition.y, cursorPosition.y) + 1);
+      const area = getArea(getInches(width - 2), getInches(height - 2));
       shape = {
         type: 'RECTANGLE',
-        width,
-        height,
+        width: getInches(width),
+        height: getInches(height),
         area: area >= 0 ? area : 0
       }
 

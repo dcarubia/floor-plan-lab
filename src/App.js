@@ -6,6 +6,7 @@ import ToolBar from './layout/ToolBar';
 import GridContainer from './layout/GridContainer';
 import CoordinateToolTip from './components/CoordinateToolTip';
 import MouseToolTip from './components/MouseToolTip';
+import SetScaleModal from './components/SetScaleModal';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
 
       <CoordinateToolTip />
       <MouseToolTip />
+      <SetScaleModal />
     </div>
   );
 }
