@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button, Menu, MenuItem } from '@material-ui/core';
+import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab } from '@material-ui/core';
 import { addText } from '../actions/sheetActions';
 import { useDispatch } from 'react-redux';
 import logo from '../images/logo.png';
+import singleDoor from '../images/objects/singleDoor.png'
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const useStyles = makeStyles({
@@ -43,6 +44,27 @@ const useStyles = makeStyles({
   },
   menuItem: {
     minWidth: 150
+  },
+  paper: {
+    position: 'absolute',
+    outline: 0,
+    top: '20%',
+    left: '30%',
+  },
+  modalContent: {
+    minWidth: 500,
+    padding: '16px 16px 16px 0px'
+  },
+  imageContainer: {
+    marginLeft: 16,
+    padding: '8px 24px 8px 24px',
+    '&:hover': {
+      backgroundColor: '#f0f0f0'
+    }
+  },
+  image: {
+    width: 80,
+    paddingBottom: 8
   }
 });
 
@@ -50,6 +72,8 @@ function AppBar() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [textboxAnchor, setTextboxAnchor] = React.useState(null);
+  const [objectModalOpen, setObjectModalOpen] = React.useState(false);
+  const [curTab, setCurTab] = React.useState(0);
 
   const redirectToSource = () => {
     window.location.href = "https://github.com/dcarubia/easy-floorplan";
@@ -68,6 +92,18 @@ function AppBar() {
     handleCloseTextbox();
   }
 
+  const handleObjectModalClose = () => {
+    setObjectModalOpen(false);
+  };
+
+  const openObjectModal = () => {
+    setObjectModalOpen(true);
+  }
+
+  const changeTab = (event, newValue) => {
+    setCurTab(newValue);
+  };
+
   return (
     <div>
       <Grid container className={classes.appBarContainer}>
@@ -80,7 +116,7 @@ function AppBar() {
           <Grid container>
             <Grid item xs={12}>
               <Typography variant='h6' style={{ fontWeight: 'normal', paddingLeft: 4 }}>
-                Floorplan Lab
+                Floor Plan Lab
               </Typography>
             </Grid>
 
@@ -93,14 +129,14 @@ function AppBar() {
                 </Grid>
 
                 <Grid item>
-                  <Button size='small' className={classes.menuButton}>
-                    Place Object
+                  <Button size='small' className={classes.menuButton} onClick={handleClickTextbox}>
+                    Place Text
                   </Button>
                 </Grid>
 
                 <Grid item>
-                  <Button size='small' className={classes.menuButton} onClick={handleClickTextbox}>
-                    Place Text
+                  <Button size='small' className={classes.menuButton} onClick={openObjectModal}>
+                    Place Object
                   </Button>
                 </Grid>
 
@@ -108,8 +144,6 @@ function AppBar() {
             </Grid>
           </Grid>
         </Grid>
-
-
 
         <Grid item xs>
           <div className={classes.justifyRight}>
@@ -122,6 +156,9 @@ function AppBar() {
 
       <Menu
         anchorEl={textboxAnchor}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: "bottom" }}
+        transformOrigin={{ vertical: "top" }}
         keepMounted
         open={Boolean(textboxAnchor)}
         onClose={handleCloseTextbox}
@@ -130,6 +167,45 @@ function AppBar() {
         <MenuItem onClick={insertLabel} className={classes.menuItem}>Label</MenuItem>
         <MenuItem onClick={insertLabel} className={classes.menuItem}>Title</MenuItem>
       </Menu>
+
+      <Modal
+        open={objectModalOpen}
+        onClose={handleObjectModalClose}
+        aria-labelledby="place-object"
+      >
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Grid item style={{ borderRight: '1px solid #d5d5d5' }}>
+              <Tabs
+                orientation='vertical'
+                value={curTab}
+                onChange={changeTab}
+                indicatorColor='primary'
+                textColor='primary'
+              >
+                <Tab label="Doors" />
+                <Tab label="Windows" />
+                <Tab label="Kitchen" />
+                <Tab label="Bathroom" />
+                <Tab label="Living Room" />
+                <Tab label="Dining Room" />
+                <Tab label="Bedroom" />
+                <Tab label="Laundry" />
+                <Tab label="Stairs" />
+              </Tabs>
+            </Grid>
+
+            <Grid item xs>
+              <Grid container className={classes.modalContent}>
+                <Grid item className={classes.imageContainer}>
+                  <img src={singleDoor} className={classes.image} />
+                  <Typography variant='body1'>Single Door</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Modal>
     </div>
   );
 }

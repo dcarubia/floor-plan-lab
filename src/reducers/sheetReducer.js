@@ -8,7 +8,9 @@ import {
   UPDATE_SELECTED,
   DELETE_WALLS,
   CREATE_WALLS,
-  SET_SCALE
+  SET_SCALE,
+  ADD_OBJECT,
+  DELETE_OBJECT
 } from '../actions/types';
 
 const initializeSheet = () => {
@@ -33,6 +35,7 @@ const initState = {
   },
   curShape: null,
   text: [],
+  objects: [{ id: 1, type: 'SINGLE_DOOR' }],
   anchor: null,
   data: {
     anchors: initializeSheet(),
@@ -63,6 +66,16 @@ const sheetReducer = (state = initState, action) => {
       return {
         ...state,
         text: state.text.filter(el => el !== action.payload)
+      }
+    case DELETE_OBJECT:
+      return {
+        ...state,
+        objects: state.objects.filter(el => el.id !== action.payload)
+      }
+    case ADD_OBJECT:
+      return {
+        ...state,
+        objects: [...state.objects, action.payload]
       }
     case SET_ANCHOR:
       const newAnchors = initializeSheet();

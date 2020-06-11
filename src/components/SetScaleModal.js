@@ -12,8 +12,8 @@ const useStyles = makeStyles({
     padding: '16px 24px 16px 24px',
     position: 'absolute',
     outline: 0,
-    top: '40%',
-    left: '40%',
+    top: '35%',
+    left: '35%',
     width: 350
   },
   fab: {
@@ -107,6 +107,12 @@ function SetScaleModal() {
             </Grid>
 
             <Grid item xs={12}>
+              <Typography variant='caption' style={{ color: 'red' }}>
+                Note: Changing the scale will resize objects but not walls.
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12}>
               <Grid container>
                 <Grid item>
                   <img src={boxSideLengthImg} className={classes.img} />
@@ -125,7 +131,7 @@ function SetScaleModal() {
                 <Grid item>
                   <Grid container className={classes.inputContainer}>
                     <Grid item>
-                      <NumericInput strict min={0} max={12} size={3} value={inchesInput} onChange={(e) => handleInchesInput(e)} />
+                      <NumericInput strict min={0} max={11} size={3} value={inchesInput} onChange={(e) => handleInchesInput(e)} />
                     </Grid>
                     <Grid item xs>
                       <Typography style={{ paddingLeft: 4 }}>Inches</Typography>

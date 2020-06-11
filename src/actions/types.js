@@ -11,3 +11,5 @@ export const DELETE_TEXT = 'DELETE_TEXT';
 export const SET_CUR_SHAPE = 'SET_CUR_SHAPE';
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';
 export const SET_SCALE = 'SET_SCALE';
+export const ADD_OBJECT = 'ADD_OBJECT';
+export const DELETE_OBJECT = 'DELETE_OBJECT';

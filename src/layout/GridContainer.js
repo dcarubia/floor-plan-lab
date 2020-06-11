@@ -6,6 +6,7 @@ import ReactCursorPosition from 'react-cursor-position';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { useSelector } from 'react-redux';
 import TextContainer from '../components/TextContainer';
+import ObjectContainer from '../components/ObjectContainer';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { boxSize } from '../config';
 
@@ -54,14 +55,6 @@ const initializeSheet = () => {
 function GridContainer() {
   const classes = useStyles();
   const [sheet, setSheet] = useState(initializeSheet);
-  const [scale, setScale] = useState(1);
-
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setScale(1.2);
-    }, 5000);
-  }, [])
 
 
   return (
@@ -86,6 +79,7 @@ function GridContainer() {
 
         )}
 
+        <ObjectContainer />
         <TextContainer />
       </div>
     </div>
