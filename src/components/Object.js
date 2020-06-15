@@ -18,7 +18,21 @@ import {
   DOUBLE_DOOR,
   SLIDING_DOOR,
   POCKET_DOOR,
-  BIFOLD_DOOR
+  BIFOLD_DOOR,
+  WINDOW_32,
+  WINDOW_48,
+  WINDOW_60,
+  COUNTER_MIDDLE,
+  COUNTER_CORNER,
+  COUNTER_END,
+  COOK_TOP,
+  DISHWASHER,
+  SINK,
+  DOUBLE_SINK,
+  OVEN,
+  REFRIGERATOR,
+  WASHER,
+  DRYER
 } from './objectInfo';
 import singleDoor from '../images/objects/singleDoor.png';
 import singleDoor90 from '../images/objects/singleDoor90.png';
@@ -40,6 +54,33 @@ import bifoldDoor from '../images/objects/bifoldDoor.png';
 import bifoldDoor90 from '../images/objects/bifoldDoor90.png';
 import bifoldDoor180 from '../images/objects/bifoldDoor180.png';
 import bifoldDoor270 from '../images/objects/bifoldDoor270.png';
+import window from '../images/objects/window.png';
+import window90 from '../images/objects/window90.png';
+import window180 from '../images/objects/window180.png';
+import window270 from '../images/objects/window270.png';
+import counterMiddle from '../images/objects/counterMiddle.png';
+import counterMiddle90 from '../images/objects/counterMiddle90.png';
+import counterMiddle180 from '../images/objects/counterMiddle180.png';
+import counterMiddle270 from '../images/objects/counterMiddle270.png';
+import cookTop from '../images/objects/cookTop.png';
+import counterCorner from '../images/objects/counterCorner.png';
+import counterEnd from '../images/objects/counterEnd.png';
+import counterEnd90 from '../images/objects/counterEnd90.png';
+import counterEnd180 from '../images/objects/counterEnd180.png';
+import counterEnd270 from '../images/objects/counterEnd270.png';
+import dishwasher from '../images/objects/dishwasher.png';
+import doubleSink from '../images/objects/doubleSink.png';
+import doubleSink90 from '../images/objects/doubleSink90.png';
+import doubleSink180 from '../images/objects/doubleSink180.png';
+import doubleSink270 from '../images/objects/doubleSink270.png';
+import dryer from '../images/objects/dryer.png';
+import oven from '../images/objects/oven.png';
+import refrigerator from '../images/objects/refrigerator.png';
+import sink from '../images/objects/sink.png';
+import sink90 from '../images/objects/sink90.png';
+import sink180 from '../images/objects/sink180.png';
+import sink270 from '../images/objects/sink270.png';
+import washer from '../images/objects/washer.png';
 
 
 const useStyles = makeStyles({
@@ -175,6 +216,56 @@ function ObjectEl({ id, type }) {
         return (imgRotation === 0 ? bifoldDoor :
           imgRotation === 90 ? bifoldDoor90 :
             imgRotation === 180 ? bifoldDoor180 : bifoldDoor270);
+      case WINDOW_32:
+      case WINDOW_48:
+      case WINDOW_60:
+        return (imgRotation === 0 ? window :
+          imgRotation === 90 ? window90 :
+            imgRotation === 180 ? window180 : window270);
+      case COOK_TOP:
+        return (imgRotation === 0 ? cookTop :
+          imgRotation === 90 ? cookTop :
+            imgRotation === 180 ? cookTop : cookTop);
+      case COUNTER_CORNER:
+        return (imgRotation === 0 ? counterCorner :
+          imgRotation === 90 ? counterCorner :
+            imgRotation === 180 ? counterCorner : counterCorner);
+      case COUNTER_END:
+        return (imgRotation === 0 ? counterEnd :
+          imgRotation === 90 ? counterEnd90 :
+            imgRotation === 180 ? counterEnd180 : counterEnd270);
+      case COUNTER_MIDDLE:
+        return (imgRotation === 0 ? counterMiddle :
+          imgRotation === 90 ? counterMiddle90 :
+            imgRotation === 180 ? counterMiddle180 : counterMiddle270);
+      case DISHWASHER:
+        return (imgRotation === 0 ? dishwasher :
+          imgRotation === 90 ? dishwasher :
+            imgRotation === 180 ? dishwasher : dishwasher);
+      case DOUBLE_SINK:
+        return (imgRotation === 0 ? doubleSink :
+          imgRotation === 90 ? doubleSink90 :
+            imgRotation === 180 ? doubleSink180 : doubleSink270);
+      case DRYER:
+        return (imgRotation === 0 ? dryer :
+          imgRotation === 90 ? dryer :
+            imgRotation === 180 ? dryer : dryer);
+      case OVEN:
+        return (imgRotation === 0 ? oven :
+          imgRotation === 90 ? oven :
+            imgRotation === 180 ? oven : oven);
+      case REFRIGERATOR:
+        return (imgRotation === 0 ? refrigerator :
+          imgRotation === 90 ? refrigerator :
+            imgRotation === 180 ? refrigerator : refrigerator);
+      case SINK:
+        return (imgRotation === 0 ? sink :
+          imgRotation === 90 ? sink90 :
+            imgRotation === 180 ? sink180 : sink270);
+      case WASHER:
+        return (imgRotation === 0 ? washer :
+          imgRotation === 90 ? washer :
+            imgRotation === 180 ? washer : washer);
       default:
         return singleDoor;
     }

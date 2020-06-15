@@ -11,6 +11,18 @@ import doubleDoor from '../images/objects/doubleDoor.png';
 import slidingDoor from '../images/objects/slidingDoor.png';
 import pocketDoor from '../images/objects/pocketDoor.png';
 import bifoldDoor from '../images/objects/bifoldDoor.png';
+import window from '../images/objects/window.png';
+import counterMiddle from '../images/objects/counterMiddle.png';
+import cookTop from '../images/objects/cookTop.png';
+import counterCorner from '../images/objects/counterCorner.png';
+import counterEnd from '../images/objects/counterEnd.png';
+import dishwasher from '../images/objects/dishwasher.png';
+import doubleSink from '../images/objects/doubleSink.png';
+import dryer from '../images/objects/dryer.png';
+import oven from '../images/objects/oven.png';
+import refrigerator from '../images/objects/refrigerator.png';
+import sink from '../images/objects/sink.png';
+import washer from '../images/objects/washer.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const useStyles = makeStyles({
@@ -54,19 +66,20 @@ const useStyles = makeStyles({
   paper: {
     position: 'absolute',
     outline: 0,
-    top: '20%',
-    left: '30%',
+    backgroundColor: '#f0f0f0',
+    top: '100px',
+    left: 'calc(50vw - 300px)',
   },
   modalContent: {
     width: 480,
-    padding: '0px 16px 16px 0px'
+    padding: '0px 16px 16px 0px',
   },
   imageContainer: {
     marginLeft: 16,
     marginTop: 16,
     padding: '8px 24px 8px 24px',
     '&:hover': {
-      backgroundColor: '#f0f0f0'
+      backgroundColor: '#e4e4e4'
     }
   },
   image: {
@@ -253,12 +266,101 @@ function AppBar() {
 
                 : curTab === 1 ?
                   <Grid container className={classes.modalContent}>
-                    <Grid item className={classes.imageContainer}>
-                      <img src={singleDoor} className={classes.image} />
-                      <Typography variant='body1'>Single Door</Typography>
+
+                    <Grid item className={classes.imageContainer} onClick={() => placeObject('WINDOW_32')}>
+                      <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src={window} className={classes.image} style={{ height: getImgHeight('WINDOW_32') }} />
+                      </div>
+                      <Typography variant='body1'>Window (32")</Typography>
                     </Grid>
-                  </Grid> :
-                  null
+
+                    <Grid item className={classes.imageContainer} onClick={() => placeObject('WINDOW_48')}>
+                      <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src={window} className={classes.image} style={{ height: getImgHeight('WINDOW_48') }} />
+                      </div>
+                      <Typography variant='body1'>Window (48")</Typography>
+                    </Grid>
+
+                    <Grid item className={classes.imageContainer} onClick={() => placeObject('WINDOW_60')}>
+                      <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src={window} className={classes.image} style={{ height: getImgHeight('WINDOW_60') }} />
+                      </div>
+                      <Typography variant='body1'>Window (60")</Typography>
+                    </Grid>
+
+
+                  </Grid>
+
+                  : curTab === 2 ?
+                    <Grid container className={classes.modalContent}>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('COUNTER_END')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={counterEnd} className={classes.image} style={{ height: getImgHeight('COUNTER_END') }} />
+                        </div>
+                        <Typography variant='body1'>Counter End (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('COUNTER_MIDDLE')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={counterMiddle} className={classes.image} style={{ height: getImgHeight('COUNTER_MIDDLE') }} />
+                        </div>
+                        <Typography variant='body1'>Counter Middle (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('COUNTER_CORNER')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={counterCorner} className={classes.image} style={{ height: getImgHeight('COUNTER_CORNER') }} />
+                        </div>
+                        <Typography variant='body1'>Counter Corner (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('COOK_TOP')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={cookTop} className={classes.image} style={{ height: getImgHeight('COOK_TOP') }} />
+                        </div>
+                        <Typography variant='body1'>Cook Top (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('DISHWASHER')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={dishwasher} className={classes.image} style={{ height: getImgHeight('DISHWASHER') }} />
+                        </div>
+                        <Typography variant='body1'>Dishwasher (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('SINK')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={sink} className={classes.image} style={{ height: getImgHeight('SINK') }} />
+                        </div>
+                        <Typography variant='body1'>Sink (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('DOUBLE_SINK')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={doubleSink} className={classes.image} style={{ height: getImgHeight('DOUBLE_SINK') }} />
+                        </div>
+                        <Typography variant='body1'>Double Sink (48")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('REFRIGERATOR')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={refrigerator} className={classes.image} style={{ height: getImgHeight('REFRIGERATOR') }} />
+                        </div>
+                        <Typography variant='body1'>Refrigerator (24")</Typography>
+                      </Grid>
+
+                      <Grid item className={classes.imageContainer} onClick={() => placeObject('OVEN')}>
+                        <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <img src={oven} className={classes.image} style={{ height: getImgHeight('OVEN') }} />
+                        </div>
+                        <Typography variant='body1'>Oven (24")</Typography>
+                      </Grid>
+
+
+                    </Grid>
+
+                    : null
               }
             </Grid>
           </Grid>
