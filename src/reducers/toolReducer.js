@@ -1,7 +1,7 @@
 import { SET_TOOL } from '../actions/types';
 
 const initState = {
-  current: 'SELECT'
+  current: 'POINTER'
 }
 
 const toolReducer = (state = initState, action) => {

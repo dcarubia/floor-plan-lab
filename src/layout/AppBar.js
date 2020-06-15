@@ -4,7 +4,13 @@ import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab } fro
 import { addText } from '../actions/sheetActions';
 import { useDispatch } from 'react-redux';
 import logo from '../images/logo.png';
-import singleDoor from '../images/objects/singleDoor.png'
+import { addObject } from '../actions/sheetActions';
+import { getObjectSize } from '../components/objectInfo';
+import singleDoor from '../images/objects/singleDoor.png';
+import doubleDoor from '../images/objects/doubleDoor.png';
+import slidingDoor from '../images/objects/slidingDoor.png';
+import pocketDoor from '../images/objects/pocketDoor.png';
+import bifoldDoor from '../images/objects/bifoldDoor.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const useStyles = makeStyles({
@@ -52,18 +58,18 @@ const useStyles = makeStyles({
     left: '30%',
   },
   modalContent: {
-    minWidth: 500,
-    padding: '16px 16px 16px 0px'
+    width: 480,
+    padding: '0px 16px 16px 0px'
   },
   imageContainer: {
     marginLeft: 16,
+    marginTop: 16,
     padding: '8px 24px 8px 24px',
     '&:hover': {
       backgroundColor: '#f0f0f0'
     }
   },
   image: {
-    width: 80,
     paddingBottom: 8
   }
 });
@@ -103,6 +109,15 @@ function AppBar() {
   const changeTab = (event, newValue) => {
     setCurTab(newValue);
   };
+
+  const placeObject = (objectType) => {
+    dispatch(addObject(objectType));
+  }
+
+  const getImgHeight = (objectType) => {
+    const objectHeight = getObjectSize(objectType).h;
+    return Math.round((objectHeight / 36) * 50);
+  }
 
   return (
     <div>
@@ -196,12 +211,55 @@ function AppBar() {
             </Grid>
 
             <Grid item xs>
-              <Grid container className={classes.modalContent}>
-                <Grid item className={classes.imageContainer}>
-                  <img src={singleDoor} className={classes.image} />
-                  <Typography variant='body1'>Single Door</Typography>
+              {curTab === 0 ?
+                <Grid container className={classes.modalContent}>
+                  <Grid item className={classes.imageContainer} onClick={() => placeObject('SINGLE_DOOR')}>
+                    <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={singleDoor} className={classes.image} style={{ height: getImgHeight('SINGLE_DOOR') }} />
+                    </div>
+                    <Typography variant='body1'>Single Door (32")</Typography>
+                  </Grid>
+
+                  <Grid item className={classes.imageContainer} onClick={() => placeObject('DOUBLE_DOOR')}>
+                    <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={doubleDoor} className={classes.image} style={{ height: getImgHeight('DOUBLE_DOOR') }} />
+                    </div>
+                    <Typography variant='body1'>Double Door (64")</Typography>
+                  </Grid>
+
+                  <Grid item className={classes.imageContainer} onClick={() => placeObject('SLIDING_DOOR')}>
+                    <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={slidingDoor} className={classes.image} style={{ height: getImgHeight('SLIDING_DOOR') }} />
+                    </div>
+                    <Typography variant='body1'>Sliding Door (64")</Typography>
+                  </Grid>
+
+                  <Grid item className={classes.imageContainer} onClick={() => placeObject('POCKET_DOOR')}>
+                    <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={pocketDoor} className={classes.image} style={{ height: getImgHeight('POCKET_DOOR') }} />
+                    </div>
+                    <Typography variant='body1'>Pocket Door (64")</Typography>
+                  </Grid>
+
+                  <Grid item className={classes.imageContainer} onClick={() => placeObject('BIFOLD_DOOR')}>
+                    <div style={{ minHeight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={bifoldDoor} className={classes.image} style={{ height: getImgHeight('BIFOLD_DOOR') }} />
+                    </div>
+                    <Typography variant='body1'>Bi-fold Door (60")</Typography>
+                  </Grid>
+
                 </Grid>
-              </Grid>
+
+
+                : curTab === 1 ?
+                  <Grid container className={classes.modalContent}>
+                    <Grid item className={classes.imageContainer}>
+                      <img src={singleDoor} className={classes.image} />
+                      <Typography variant='body1'>Single Door</Typography>
+                    </Grid>
+                  </Grid> :
+                  null
+              }
             </Grid>
           </Grid>
         </Paper>

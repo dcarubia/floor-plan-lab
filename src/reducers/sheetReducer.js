@@ -35,7 +35,7 @@ const initState = {
   },
   curShape: null,
   text: [],
-  objects: [{ id: 1, type: 'SINGLE_DOOR' }],
+  objects: [],
   anchor: null,
   data: {
     anchors: initializeSheet(),

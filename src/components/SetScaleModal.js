@@ -89,7 +89,7 @@ function SetScaleModal() {
       <Tooltip title={<span className={classes.toolTip}>Change Scale</span>} placement='top' arrow>
         <Fab onClick={toggleModal} variant="extended" size='small' className={classes.fab} style={{ paddingLeft: 16, paddingRight: 16, }}>
           <span className="far fa-square" style={{ paddingRight: 8 }}></span>
-            = {scale.ft}'{scale.in}" x {scale.ft}'{scale.in}"
+            = {scale.ft}'{scale.in}"
           </Fab>
       </Tooltip>
 
@@ -106,11 +106,7 @@ function SetScaleModal() {
               </Typography>
             </Grid>
 
-            <Grid item xs={12}>
-              <Typography variant='caption' style={{ color: 'red' }}>
-                Note: Changing the scale will resize objects but not walls.
-              </Typography>
-            </Grid>
+
 
             <Grid item xs={12}>
               <Grid container>
@@ -139,6 +135,12 @@ function SetScaleModal() {
                   </Grid>
                 </Grid>
               </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Typography variant='caption' style={{ color: 'red' }}>
+                Note: Changing the scale will resize objects but not walls.
+              </Typography>
             </Grid>
 
             <Grid item xs={6}>

@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import { setTool } from '../actions/toolActions';
 import { setAnchor, updateEdges, setCurShape, updateSelected } from '../actions/sheetActions';
+import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall';
 import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
@@ -55,12 +56,21 @@ function ToolBar() {
 
   return (
     <div className={classes.toolBarContainer}>
+      <Tooltip title={<span className={classes.toolTip}>Move</span>} placement='right' arrow>
+        <Button size='small'
+          onClick={() => onClick('POINTER')}
+          className={currentTool === 'POINTER' ? classes.activeButton : classes.button}
+        >
+          <span className="fas fa-mouse-pointer"></span>
+        </Button>
+      </Tooltip>
+
       <Tooltip title={<span className={classes.toolTip}>Select</span>} placement='right' arrow>
         <Button size='small'
           onClick={() => onClick('SELECT')}
           className={currentTool === 'SELECT' ? classes.activeButton : classes.button}
         >
-          <span className="fas fa-mouse-pointer"></span>
+          <PhotoSizeSelectSmallIcon />
         </Button>
       </Tooltip>
 
