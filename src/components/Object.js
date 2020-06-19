@@ -5,13 +5,14 @@ import Draggable from 'react-draggable';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteText, setAnchor, deleteObject } from '../actions/sheetActions';
+import { setAnchor, updateEdges, setCurShape, updateSelected, deleteObject } from '../actions/sheetActions';
+import { setTool } from '../actions/toolActions';
 import { boxSize } from '../config';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import RotateRightIcon from '@material-ui/icons/RotateRight';
 import FlipIcon from '@material-ui/icons/Flip';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { useDispatch, useSelector } from 'react-redux'
 import {
   getObjectSize,
   SINGLE_DOOR,
@@ -32,7 +33,15 @@ import {
   OVEN,
   REFRIGERATOR,
   WASHER,
-  DRYER
+  DRYER,
+  TOILET,
+  BR_SINK,
+  SHOWER_RECT,
+  SHOWER_SQUARE,
+  BATH,
+  CHAIR,
+  SOFA,
+  COFFEE_TABLE
 } from './objectInfo';
 import singleDoor from '../images/objects/singleDoor.png';
 import singleDoor90 from '../images/objects/singleDoor90.png';
@@ -64,6 +73,9 @@ import counterMiddle180 from '../images/objects/counterMiddle180.png';
 import counterMiddle270 from '../images/objects/counterMiddle270.png';
 import cookTop from '../images/objects/cookTop.png';
 import counterCorner from '../images/objects/counterCorner.png';
+import counterCorner90 from '../images/objects/counterCorner90.png';
+import counterCorner180 from '../images/objects/counterCorner180.png';
+import counterCorner270 from '../images/objects/counterCorner270.png';
 import counterEnd from '../images/objects/counterEnd.png';
 import counterEnd90 from '../images/objects/counterEnd90.png';
 import counterEnd180 from '../images/objects/counterEnd180.png';
@@ -81,7 +93,35 @@ import sink90 from '../images/objects/sink90.png';
 import sink180 from '../images/objects/sink180.png';
 import sink270 from '../images/objects/sink270.png';
 import washer from '../images/objects/washer.png';
-
+import bath from '../images/objects/bath.png';
+import bath90 from '../images/objects/bath90.png';
+import bath180 from '../images/objects/bath180.png';
+import bath270 from '../images/objects/bath270.png';
+import bathroomSink from '../images/objects/bathroomSink.png';
+import bathroomSink90 from '../images/objects/bathroomSink90.png';
+import bathroomSink180 from '../images/objects/bathroomSink180.png';
+import bathroomSink270 from '../images/objects/bathroomSink270.png';
+import showerRect from '../images/objects/showerRect.png';
+import showerRect90 from '../images/objects/showerRect90.png';
+import showerRect180 from '../images/objects/showerRect180.png';
+import showerRect270 from '../images/objects/showerRect270.png';
+import showerSquare from '../images/objects/showerSquare.png';
+import toilet from '../images/objects/toilet.png';
+import toilet90 from '../images/objects/toilet90.png';
+import toilet180 from '../images/objects/toilet180.png';
+import toilet270 from '../images/objects/toilet270.png';
+import chair from '../images/objects/chair.png';
+import chair90 from '../images/objects/chair90.png';
+import chair180 from '../images/objects/chair180.png';
+import chair270 from '../images/objects/chair270.png';
+import coffeeTable from '../images/objects/coffeeTable.png';
+import coffeeTable90 from '../images/objects/coffeeTable90.png';
+import coffeeTable180 from '../images/objects/coffeeTable180.png';
+import coffeeTable270 from '../images/objects/coffeeTable270.png';
+import sofa from '../images/objects/sofa.png';
+import sofa90 from '../images/objects/sofa90.png';
+import sofa180 from '../images/objects/sofa180.png';
+import sofa270 from '../images/objects/sofa270.png';
 
 const useStyles = makeStyles({
   root: {
@@ -180,6 +220,11 @@ function ObjectEl({ id, type }) {
 
   const isEditMode = () => {
     setEditMode(true);
+    dispatch(setTool('POINTER'));
+    dispatch(setAnchor(null));
+    dispatch(setCurShape(null));
+    dispatch(updateEdges([]));
+    dispatch(updateSelected([]));
   }
 
   const getImageWidth = (objectType) => {
@@ -228,8 +273,8 @@ function ObjectEl({ id, type }) {
             imgRotation === 180 ? cookTop : cookTop);
       case COUNTER_CORNER:
         return (imgRotation === 0 ? counterCorner :
-          imgRotation === 90 ? counterCorner :
-            imgRotation === 180 ? counterCorner : counterCorner);
+          imgRotation === 90 ? counterCorner90 :
+            imgRotation === 180 ? counterCorner180 : counterCorner270);
       case COUNTER_END:
         return (imgRotation === 0 ? counterEnd :
           imgRotation === 90 ? counterEnd90 :
@@ -266,6 +311,36 @@ function ObjectEl({ id, type }) {
         return (imgRotation === 0 ? washer :
           imgRotation === 90 ? washer :
             imgRotation === 180 ? washer : washer);
+      case BATH:
+        return (imgRotation === 0 ? bath :
+          imgRotation === 90 ? bath90 :
+            imgRotation === 180 ? bath180 : bath270);
+      case BR_SINK:
+        return (imgRotation === 0 ? bathroomSink :
+          imgRotation === 90 ? bathroomSink90 :
+            imgRotation === 180 ? bathroomSink180 : bathroomSink270);
+      case SHOWER_RECT:
+        return (imgRotation === 0 ? showerRect :
+          imgRotation === 90 ? showerRect90 :
+            imgRotation === 180 ? showerRect180 : showerRect270);
+      case SHOWER_SQUARE:
+        return (showerSquare);
+      case TOILET:
+        return (imgRotation === 0 ? toilet :
+          imgRotation === 90 ? toilet90 :
+            imgRotation === 180 ? toilet180 : toilet270);
+      case CHAIR:
+        return (imgRotation === 0 ? chair :
+          imgRotation === 90 ? chair90 :
+            imgRotation === 180 ? chair180 : chair270);
+      case SOFA:
+        return (imgRotation === 0 ? sofa :
+          imgRotation === 90 ? sofa90 :
+            imgRotation === 180 ? sofa180 : sofa270);
+      case COFFEE_TABLE:
+        return (imgRotation === 0 ? coffeeTable :
+          imgRotation === 90 ? coffeeTable90 :
+            imgRotation === 180 ? coffeeTable180 : coffeeTable270);
       default:
         return singleDoor;
     }

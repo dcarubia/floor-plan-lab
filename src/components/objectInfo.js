@@ -22,7 +22,16 @@ export const REFRIGERATOR = 'REFRIGERATOR';
 // Laundry:
 export const WASHER = 'WASHER';
 export const DRYER = 'DRYER';
-
+// Bathroom:
+export const BATH = 'BATH';
+export const BR_SINK = 'BR_SINK';
+export const TOILET = 'TOILET';
+export const SHOWER_RECT = 'SHOWER_RECT';
+export const SHOWER_SQUARE = 'SHOWER_SQUARE';
+// Living Room:
+export const CHAIR = 'CHAIR';
+export const SOFA = 'SOFA';
+export const COFFEE_TABLE = 'COFFEE_TABLE';
 
 
 // ----------- GET OBJECT SIZES ---------------
@@ -58,6 +67,22 @@ export const getObjectSize = (type) => {
     case WASHER:
     case DRYER:
       return { w: 27, h: 27 };
+    case BATH:
+      return { w: 60, h: 32 };
+    case BR_SINK:
+      return { w: 30, h: 20 };
+    case SHOWER_RECT:
+      return { w: 60, h: 32 };
+    case SHOWER_SQUARE:
+      return { w: 32, h: 32 };
+    case TOILET:
+      return { w: 20, h: 30 };
+    case CHAIR:
+      return { w: 35, h: 35 };
+    case SOFA:
+      return { w: 84, h: 34 };
+    case COFFEE_TABLE:
+      return { w: 40, h: 20 };
     default:
       return { w: 32, h: 32 };
   }
