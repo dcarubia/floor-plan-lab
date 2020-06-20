@@ -91,6 +91,13 @@ const useStyles = makeStyles({
     top: 'calc(50vh - 150px)',
     left: 'calc(50vw - 200px)',
   },
+  tutorialPaper: {
+    position: 'absolute',
+    outline: 0,
+    width: 840,
+    top: 'calc(50vh - 300px)',
+    left: 'calc(50vw - 420px)',
+  },
   modalContent: {
     maxWidth: 480,
     height: 'calc(100vh - 64px - 32px)',
@@ -309,6 +316,7 @@ function AppBar() {
   const [fileAnchor, setFileAnchor] = React.useState(null);
   const [objectModalOpen, setObjectModalOpen] = React.useState(false);
   const [warningModalOpen, setWarningModalOpen] = React.useState(false);
+  const [tutorialModalOpen, setTutorialModalOpen] = React.useState(true);
   const [curTab, setCurTab] = React.useState(0);
 
   const redirectToSource = () => {
@@ -345,6 +353,10 @@ function AppBar() {
     setObjectModalOpen(false);
   };
 
+  const handleTutorialModalClose = () => {
+    setTutorialModalOpen(false);
+  };
+
   const handleWarningModalClose = () => {
     setWarningModalOpen(false);
     handleCloseFile();
@@ -357,6 +369,10 @@ function AppBar() {
     dispatch(updateEdges([]));
     dispatch(updateSelected([]));
     setObjectModalOpen(true);
+  }
+
+  const openTutorialModal = () => {
+    setTutorialModalOpen(true);
   }
 
   const openWarningModal = () => {
@@ -420,7 +436,7 @@ function AppBar() {
         <Grid item xs>
           <div className={classes.justifyRight}>
             <ButtonGroup variant="contained" color='primary'>
-              <Button className={classes.button} onClick={null}>
+              <Button className={classes.button} onClick={openTutorialModal}>
                 Tutorial
             </Button>
               <Button className={classes.button} onClick={redirectToSource}>
@@ -491,10 +507,13 @@ function AppBar() {
                       objects.doors.map(object =>
                         <Grid item xs={6}>
                           <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                            <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                               <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                             </div>
-                            <Typography variant='body2'>{object.label}</Typography>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <Typography variant='body2'>{object.label}</Typography>
+                            </div>
+
                           </div>
                         </Grid>
                       )
@@ -509,10 +528,13 @@ function AppBar() {
                         objects.windows.map(object =>
                           <Grid item xs={6}>
                             <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                              <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                 <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                               </div>
-                              <Typography variant='body2'>{object.label}</Typography>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Typography variant='body2'>{object.label}</Typography>
+                              </div>
+
                             </div>
                           </Grid>
                         )
@@ -527,10 +549,13 @@ function AppBar() {
                           objects.kitchen.map(object =>
                             <Grid item xs={6}>
                               <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                   <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                 </div>
-                                <Typography variant='body2'>{object.label}</Typography>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <Typography variant='body2'>{object.label}</Typography>
+                                </div>
+
                               </div>
                             </Grid>
                           )
@@ -545,10 +570,13 @@ function AppBar() {
                             objects.bathroom.map(object =>
                               <Grid item xs={6}>
                                 <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                  <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                     <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                   </div>
-                                  <Typography variant='body2'>{object.label}</Typography>
+                                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Typography variant='body2'>{object.label}</Typography>
+                                  </div>
+
                                 </div>
                               </Grid>
                             )
@@ -563,10 +591,13 @@ function AppBar() {
                               objects.livingRoom.map(object =>
                                 <Grid item xs={6}>
                                   <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                    <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                       <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                     </div>
-                                    <Typography variant='body2'>{object.label}</Typography>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <Typography variant='body2'>{object.label}</Typography>
+                                    </div>
+
                                   </div>
                                 </Grid>
                               )
@@ -581,10 +612,13 @@ function AppBar() {
                                 objects.diningRoom.map(object =>
                                   <Grid item xs={6}>
                                     <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                      <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                         <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                       </div>
-                                      <Typography variant='body2'>{object.label}</Typography>
+                                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Typography variant='body2'>{object.label}</Typography>
+                                      </div>
+
                                     </div>
                                   </Grid>
                                 )
@@ -599,10 +633,13 @@ function AppBar() {
                                   objects.bedroom.map(object =>
                                     <Grid item xs={6}>
                                       <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                        <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                           <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                         </div>
-                                        <Typography variant='body2'>{object.label}</Typography>
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                          <Typography variant='body2'>{object.label}</Typography>
+                                        </div>
+
                                       </div>
                                     </Grid>
                                   )
@@ -617,10 +654,13 @@ function AppBar() {
                                     objects.laundry.map(object =>
                                       <Grid item xs={6}>
                                         <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                          <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                             <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                           </div>
-                                          <Typography variant='body2'>{object.label}</Typography>
+                                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <Typography variant='body2'>{object.label}</Typography>
+                                          </div>
+
                                         </div>
                                       </Grid>
                                     )
@@ -635,10 +675,13 @@ function AppBar() {
                                       objects.stairs.map(object =>
                                         <Grid item xs={6}>
                                           <div className={classes.imageContainer} onClick={() => placeObject(object.id)}>
-                                            <div style={{ display: 'flex', alignItems: 'center', minHeight: 80 }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
                                               <img src={object.file} className={classes.image} style={{ height: getImgHeight(object.id) }} />
                                             </div>
-                                            <Typography variant='body2'>{object.label}</Typography>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                              <Typography variant='body2'>{object.label}</Typography>
+                                            </div>
+
                                           </div>
                                         </Grid>
                                       )
@@ -669,6 +712,46 @@ function AppBar() {
             </Grid>
             <Grid item xs={6} style={{ padding: 8 }}>
               <Button variant='contained' color='default' fullWidth onClick={handleWarningModalClose}>Cancel</Button>
+            </Grid>
+          </Grid>
+
+        </Paper>
+      </Modal>
+
+      <Modal
+        open={tutorialModalOpen}
+        onClose={null}
+        aria-labelledby="tutorial"
+      >
+        <Paper className={classes.tutorialPaper}>
+          <div style={{ padding: 24 }}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Welcome to Floor Plan Lab!</Typography>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This quick tutorial will show you how to design a floorplan using the built in tools and features.</Typography>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Typography variant='subtitle1' style={{ fontSize: 18 }} >At any point you can jump right in by pressing "Skip Tutorial".</Typography>
+                </div>
+              </Grid>
+            </Grid>
+          </div>
+
+          <Grid container>
+            <Grid item xs={6} style={{ padding: 24 }}>
+              <Button variant='contained' color='default' onClick={handleTutorialModalClose}>Skip Tutorial</Button>
+            </Grid>
+            <Grid item xs={6} style={{ padding: 24 }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant='contained' color='primary' onClick={null} >Next</Button>
+              </div>
             </Grid>
           </Grid>
 

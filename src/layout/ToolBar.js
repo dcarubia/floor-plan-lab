@@ -74,23 +74,7 @@ function ToolBar() {
         </Button>
       </Tooltip>
 
-      <Tooltip title={<span className={classes.toolTip}>Draw</span>} placement='right' arrow>
-        <Button size='small'
-          onClick={() => onClick('DRAW')}
-          className={currentTool === 'DRAW' ? classes.activeButton : classes.button}
-        >
-          <span className="fas fa-pen"></span>
-        </Button>
-      </Tooltip>
 
-      <Tooltip title={<span className={classes.toolTip}>Erase</span>} placement='right' arrow>
-        <Button size='small'
-          onClick={() => onClick('ERASE')}
-          className={currentTool === 'ERASE' ? classes.activeButton : classes.button}
-        >
-          <span className="fas fa-eraser"></span>
-        </Button>
-      </Tooltip>
 
       <Tooltip title={<span className={classes.toolTip}>Wall</span>} placement='right' arrow>
         <Button size='small'
@@ -107,6 +91,24 @@ function ToolBar() {
           className={currentTool === 'RECTANGLE' ? classes.activeButton : classes.button}
         >
           <span className="fas fa-vector-square"></span>
+        </Button>
+      </Tooltip>
+
+      <Tooltip title={<span className={classes.toolTip}>Draw</span>} placement='right' arrow>
+        <Button size='small'
+          onClick={() => onClick('DRAW')}
+          className={currentTool === 'DRAW' ? classes.activeButton : classes.button}
+        >
+          <span className="fas fa-pen"></span>
+        </Button>
+      </Tooltip>
+
+      <Tooltip title={<span className={classes.toolTip}>Erase</span>} placement='right' arrow>
+        <Button size='small'
+          onClick={() => onClick('ERASE')}
+          className={currentTool === 'ERASE' ? classes.activeButton : classes.button}
+        >
+          <span className="fas fa-eraser"></span>
         </Button>
       </Tooltip>
 
