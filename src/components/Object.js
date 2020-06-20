@@ -41,7 +41,13 @@ import {
   BATH,
   CHAIR,
   SOFA,
-  COFFEE_TABLE
+  COFFEE_TABLE,
+  END_TABLE,
+  LOVESEAT,
+  TABLE_RECT,
+  TABLE_ROUND,
+  TWIN_BED,
+  QUEEN_BED
 } from './objectInfo';
 import singleDoor from '../images/objects/singleDoor.png';
 import singleDoor90 from '../images/objects/singleDoor90.png';
@@ -114,14 +120,33 @@ import chair from '../images/objects/chair.png';
 import chair90 from '../images/objects/chair90.png';
 import chair180 from '../images/objects/chair180.png';
 import chair270 from '../images/objects/chair270.png';
+import endTable from '../images/objects/endTable.png';
 import coffeeTable from '../images/objects/coffeeTable.png';
 import coffeeTable90 from '../images/objects/coffeeTable90.png';
 import coffeeTable180 from '../images/objects/coffeeTable180.png';
 import coffeeTable270 from '../images/objects/coffeeTable270.png';
+import loveSeat from '../images/objects/loveSeat.png';
+import loveSeat90 from '../images/objects/loveSeat90.png';
+import loveSeat180 from '../images/objects/loveSeat180.png';
+import loveSeat270 from '../images/objects/loveSeat270.png';
 import sofa from '../images/objects/sofa.png';
 import sofa90 from '../images/objects/sofa90.png';
 import sofa180 from '../images/objects/sofa180.png';
 import sofa270 from '../images/objects/sofa270.png';
+import tableRound from '../images/objects/tableRound.png';
+import tableRect from '../images/objects/tableRect.png';
+import tableRect90 from '../images/objects/tableRect90.png';
+import tableRect180 from '../images/objects/tableRect180.png';
+import tableRect270 from '../images/objects/tableRect270.png';
+import twinBed from '../images/objects/twinBed.png';
+import twinBed90 from '../images/objects/twinBed90.png';
+import twinBed180 from '../images/objects/twinBed180.png';
+import twinBed270 from '../images/objects/twinBed270.png';
+import queenBed from '../images/objects/queenBed.png';
+import queenBed90 from '../images/objects/queenBed90.png';
+import queenBed180 from '../images/objects/queenBed180.png';
+import queenBed270 from '../images/objects/queenBed270.png';
+
 
 const useStyles = makeStyles({
   root: {
@@ -333,6 +358,10 @@ function ObjectEl({ id, type }) {
         return (imgRotation === 0 ? chair :
           imgRotation === 90 ? chair90 :
             imgRotation === 180 ? chair180 : chair270);
+      case LOVESEAT:
+        return (imgRotation === 0 ? loveSeat :
+          imgRotation === 90 ? loveSeat90 :
+            imgRotation === 180 ? loveSeat180 : loveSeat270);
       case SOFA:
         return (imgRotation === 0 ? sofa :
           imgRotation === 90 ? sofa90 :
@@ -341,6 +370,22 @@ function ObjectEl({ id, type }) {
         return (imgRotation === 0 ? coffeeTable :
           imgRotation === 90 ? coffeeTable90 :
             imgRotation === 180 ? coffeeTable180 : coffeeTable270);
+      case END_TABLE:
+        return (endTable);
+      case TABLE_ROUND:
+        return (tableRound);
+      case TABLE_RECT:
+        return (imgRotation === 0 ? tableRect :
+          imgRotation === 90 ? tableRect90 :
+            imgRotation === 180 ? tableRect180 : tableRect270);
+      case QUEEN_BED:
+        return (imgRotation === 0 ? queenBed :
+          imgRotation === 90 ? queenBed90 :
+            imgRotation === 180 ? queenBed180 : queenBed270);
+      case TWIN_BED:
+        return (imgRotation === 0 ? twinBed :
+          imgRotation === 90 ? twinBed90 :
+            imgRotation === 180 ? twinBed180 : twinBed270);
       default:
         return singleDoor;
     }

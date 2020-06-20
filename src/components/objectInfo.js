@@ -30,8 +30,17 @@ export const SHOWER_RECT = 'SHOWER_RECT';
 export const SHOWER_SQUARE = 'SHOWER_SQUARE';
 // Living Room:
 export const CHAIR = 'CHAIR';
+export const LOVESEAT = 'LOVESEAT';
 export const SOFA = 'SOFA';
 export const COFFEE_TABLE = 'COFFEE_TABLE';
+export const END_TABLE = 'END_TABLE';
+// Dining Room:
+export const TABLE_ROUND = 'TABLE_ROUND';
+export const TABLE_RECT = 'TABLE_RECT';
+// Bedroom:
+export const QUEEN_BED = 'QUEEN_BED';
+export const TWIN_BED = 'TWIN_BED';
+
 
 
 // ----------- GET OBJECT SIZES ---------------
@@ -79,10 +88,22 @@ export const getObjectSize = (type) => {
       return { w: 20, h: 30 };
     case CHAIR:
       return { w: 35, h: 35 };
+    case LOVESEAT:
+      return { w: 58, h: 34 };
     case SOFA:
       return { w: 84, h: 34 };
     case COFFEE_TABLE:
       return { w: 40, h: 20 };
+    case END_TABLE:
+      return { w: 18, h: 18 };
+    case TABLE_RECT:
+      return { w: 48, h: 36 };
+    case TABLE_ROUND:
+      return { w: 32, h: 32 };
+    case QUEEN_BED:
+      return { w: 60, h: 80 };
+    case TWIN_BED:
+      return { w: 38, h: 75 };
     default:
       return { w: 32, h: 32 };
   }

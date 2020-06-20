@@ -31,7 +31,13 @@ import showerSquare from '../images/objects/showerSquare.png';
 import toilet from '../images/objects/toilet.png';
 import chair from '../images/objects/chair.png';
 import coffeeTable from '../images/objects/coffeeTable.png';
+import endTable from '../images/objects/endTable.png';
 import sofa from '../images/objects/sofa.png';
+import loveSeat from '../images/objects/loveSeat.png';
+import tableRound from '../images/objects/tableRound.png';
+import tableRect from '../images/objects/tableRect.png';
+import queenBed from '../images/objects/queenBed.png';
+import twinBed from '../images/objects/twinBed.png';
 
 const useStyles = makeStyles({
   appBarContainer: {
@@ -223,6 +229,11 @@ const objects = {
       label: 'Chair - 35\"'
     },
     {
+      id: 'LOVESEAT',
+      file: loveSeat,
+      label: 'Loveseat - 58\"'
+    },
+    {
       id: 'SOFA',
       file: sofa,
       label: 'Sofa - 84\"'
@@ -232,12 +243,40 @@ const objects = {
       file: coffeeTable,
       label: 'Coffee Table - 40\"'
     },
+    {
+      id: 'END_TABLE',
+      file: endTable,
+      label: 'End Table - 18\"'
+    },
   ],
   diningRoom: [
-
+    {
+      id: 'TABLE_ROUND',
+      file: tableRound,
+      label: 'Round Table - 36\"'
+    },
+    {
+      id: 'TABLE_RECT',
+      file: tableRect,
+      label: 'Rectangular Table - 48\"'
+    },
   ],
   bedroom: [
-
+    {
+      id: 'QUEEN_BED',
+      file: queenBed,
+      label: 'Queen Bed - 60\"x80\"'
+    },
+    {
+      id: 'TWIN_BED',
+      file: twinBed,
+      label: 'Twin Bed - 38\"x75\"'
+    },
+    {
+      id: 'END_TABLE',
+      file: endTable,
+      label: 'End Table - 18\"'
+    },
   ],
   laundry: [
     {
@@ -393,7 +432,6 @@ function AppBar() {
                 <Tab label="Dining Room" />
                 <Tab label="Bedroom" />
                 <Tab label="Laundry" />
-                <Tab label="Stairs" />
               </Tabs>
             </Grid>
 
