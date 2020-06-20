@@ -101,14 +101,14 @@ function TextBox({ id }) {
                   <Grid item>
                     <Tooltip title='Save'>
                       <div className={classes.iconButton} onClick={() => setEditMode(false)}>
-                        <DoneIcon style={{ color: '#2ca01c' }} />
+                        <DoneIcon color='primary' style={{ color: '#5d6e7c' }} />
                       </div>
                     </Tooltip>
                   </Grid>
                   <Grid item>
                     <Tooltip title='Delete'>
                       <div className={classes.iconButton} onClick={handleDelete}>
-                        <CloseIcon style={{ color: '#ff0000' }} />
+                        <CloseIcon style={{ color: '#bc0000' }} />
                       </div>
                     </Tooltip>
                   </Grid>

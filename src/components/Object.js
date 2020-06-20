@@ -147,7 +147,6 @@ import queenBed90 from '../images/objects/queenBed90.png';
 import queenBed180 from '../images/objects/queenBed180.png';
 import queenBed270 from '../images/objects/queenBed270.png';
 
-
 const useStyles = makeStyles({
   root: {
     position: 'absolute',

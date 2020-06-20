@@ -38,6 +38,8 @@ import tableRound from '../images/objects/tableRound.png';
 import tableRect from '../images/objects/tableRect.png';
 import queenBed from '../images/objects/queenBed.png';
 import twinBed from '../images/objects/twinBed.png';
+import changeScaleGif from '../images/tutorial/changeScale.gif';
+import plan1 from '../images/tutorial/Plan1.png';
 
 const useStyles = makeStyles({
   appBarContainer: {
@@ -94,8 +96,8 @@ const useStyles = makeStyles({
   tutorialPaper: {
     position: 'absolute',
     outline: 0,
-    width: 840,
-    top: 'calc(50vh - 300px)',
+    width: 860,
+    top: 'calc(50vh - 350px)',
     left: 'calc(50vw - 420px)',
   },
   modalContent: {
@@ -114,6 +116,9 @@ const useStyles = makeStyles({
   },
   image: {
     paddingBottom: 8
+  },
+  gif: {
+    maxHeight: 380
   }
 });
 
@@ -318,10 +323,8 @@ function AppBar() {
   const [warningModalOpen, setWarningModalOpen] = React.useState(false);
   const [tutorialModalOpen, setTutorialModalOpen] = React.useState(true);
   const [curTab, setCurTab] = React.useState(0);
+  const [tutorialTab, setTutorialTab] = React.useState(1);
 
-  const redirectToSource = () => {
-    window.location.href = "https://github.com/dcarubia/easy-floorplan";
-  }
 
   const handleClickTextbox = (event) => {
     setTextboxAnchor(event.currentTarget);
@@ -372,6 +375,7 @@ function AppBar() {
   }
 
   const openTutorialModal = () => {
+    setTutorialTab(1);
     setTutorialModalOpen(true);
   }
 
@@ -439,9 +443,12 @@ function AppBar() {
               <Button className={classes.button} onClick={openTutorialModal}>
                 Tutorial
             </Button>
-              <Button className={classes.button} onClick={redirectToSource}>
-                View Source
-            </Button>
+              <a href='https://github.com/dcarubia/floor-plan-lab'>
+                <Button className={classes.button}>
+                  View Source
+                </Button>
+              </a>
+
             </ButtonGroup>
 
           </div>
@@ -470,7 +477,7 @@ function AppBar() {
         open={Boolean(fileAnchor)}
         onClose={handleCloseFile}
       >
-        <MenuItem onClick={openWarningModal} className={classes.menuItem}>New Plan</MenuItem>
+        <MenuItem onClick={openWarningModal} className={classes.menuItem}>New</MenuItem>
       </Menu>
 
       <Modal
@@ -703,7 +710,7 @@ function AppBar() {
       >
         <Paper className={classes.warningPaper}>
           <div style={{ padding: 24 }}>
-            <Typography color='error' variant='body1' style={{ fontWeight: 'bold' }}>Warning: Creating a new plan will override your current plan.</Typography>
+            <Typography color='error' variant='body1' style={{ fontWeight: 'bold' }}>Warning: Creating a new plan will override the current plan.</Typography>
           </div>
 
           <Grid container>
@@ -724,33 +731,89 @@ function AppBar() {
         aria-labelledby="tutorial"
       >
         <Paper className={classes.tutorialPaper}>
-          <div style={{ padding: 24 }}>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Welcome to Floor Plan Lab!</Typography>
-                </div>
+          <div style={{ padding: 32, minHeight: 580 }}>
+            {tutorialTab === 1 ?
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Welcome to Floor Plan Lab!</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This short tutorial will show you how to design a floorplan using the built in tools and features.</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography variant='subtitle1' style={{ fontSize: 18 }} >At any point you can jump right in by pressing "Skip Tutorial".</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <img src={plan1} style={{ maxHeight: 450 }}></img>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This quick tutorial will show you how to design a floorplan using the built in tools and features.</Typography>
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Typography variant='subtitle1' style={{ fontSize: 18 }} >At any point you can jump right in by pressing "Skip Tutorial".</Typography>
-                </div>
-              </Grid>
-            </Grid>
+              : tutorialTab === 2 ?
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <div style={{ marginBottom: 8 }}>
+                      <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Project Scale</Typography>
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Start each project by specifying a grid scale.</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant='subtitle1' style={{ fontSize: 18 }} >By default each grid line equals 1 ft. For more accurate object sizes we recommend decreaing the scale to 6 in. or 8 in. </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <img src={changeScaleGif} className={classes.gif}></img>
+                  </Grid>
+                </Grid>
+                : tutorialTab === 3 ?
+                  <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                      <div style={{ marginBottom: 8 }}>
+                        <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Toolbar</Typography>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>The toolbar is located on the left side of your screen.</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant='subtitle1' style={{ fontSize: 18 }} >It allows you to switch between the following tools: </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <img src={changeScaleGif} className={classes.gif}></img>
+                    </Grid>
+                  </Grid>
+                  : null
+            }
+
           </div>
 
           <Grid container>
-            <Grid item xs={6} style={{ padding: 24 }}>
+            <Grid item xs={3} style={{ padding: '0px 16px 16px 16px' }}>
               <Button variant='contained' color='default' onClick={handleTutorialModalClose}>Skip Tutorial</Button>
             </Grid>
-            <Grid item xs={6} style={{ padding: 24 }}>
+            <Grid item xs={3}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 4 }}>
+                <Typography variant='h6'>{tutorialTab}/9</Typography>
+              </div>
+            </Grid>
+            <Grid item xs={6} style={{ padding: '0px 16px 16px 16px' }}>
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant='contained' color='primary' onClick={null} >Next</Button>
+                {tutorialTab > 1 ?
+                  <Button variant='contained' color='default' onClick={() => setTutorialTab(tutorialTab - 1)} style={{ marginRight: 8 }}>Back</Button>
+                  : null}
+                {tutorialTab < 5 ?
+                  <Button variant='contained' color='primary' onClick={() => setTutorialTab(tutorialTab + 1)} >Next</Button>
+                  : null}
+                {tutorialTab === 5 ?
+                  <Button variant='contained' color='primary' onClick={handleTutorialModalClose} >Finish</Button>
+                  : null}
               </div>
             </Grid>
           </Grid>

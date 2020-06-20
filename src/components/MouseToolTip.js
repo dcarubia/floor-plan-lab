@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Fab, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { setMouseDown } from '../actions/cursorActions';
-import { deleteWalls, createWalls } from '../actions/sheetActions';
+import { deleteWalls, createWalls, setAnchor, updateEdges, setCurShape, updateSelected } from '../actions/sheetActions';
 import MouseTooltip from 'react-sticky-mouse-tooltip';
 import { getState } from '../index';
 
@@ -32,7 +32,13 @@ function MouseToolTip() {
   }
 
   const handleKeyDown = event => {
-    if (getState().tool.current === 'SELECT') {
+    if (event.key === "Escape") {
+      dispatch(setAnchor(null));
+      dispatch(setCurShape(null));
+      dispatch(updateEdges([]));
+      dispatch(updateSelected([]));
+    }
+    else if (getState().tool.current === 'SELECT') {
       if (event.which === 8) {
         // backspace
         dispatch(deleteWalls());
