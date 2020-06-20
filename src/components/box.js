@@ -35,6 +35,12 @@ function Box({ isPositionOutside, boxProps }) {
   const setWall = useSelector(state => state.sheet.data.walls[boxProps.row][boxProps.col]);
   const isAnchor = useSelector(state => state.sheet.data.anchors[boxProps.row][boxProps.col]);
   const isSelected = useSelector(state => state.sheet.data.selected[boxProps.row][boxProps.col]);
+  const createNewFile = useSelector(state => state.sheet.newFile);
+
+  React.useEffect(() => {
+    setIsWall(false);
+  }, [createNewFile])
+
 
   const getMouseDown = () => {
     return getState().cursor.mouseDown;

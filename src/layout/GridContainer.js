@@ -56,7 +56,6 @@ function GridContainer() {
   const classes = useStyles();
   const [sheet, setSheet] = useState(initializeSheet);
 
-
   return (
     <div className={classes.root}>
       <div className={classes.container}>

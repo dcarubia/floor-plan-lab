@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab } from '@material-ui/core';
+import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab, ButtonGroup } from '@material-ui/core';
 import { addText, addObject } from '../actions/sheetActions';
-import { setAnchor, updateEdges, setCurShape, updateSelected } from '../actions/sheetActions';
+import { setAnchor, updateEdges, setCurShape, updateSelected, setNewFile } from '../actions/sheetActions';
 import { setTool } from '../actions/toolActions';
 import { useDispatch } from 'react-redux';
 import logo from '../images/logo.png';
@@ -83,6 +83,13 @@ const useStyles = makeStyles({
     height: 'calc(100vh - 64px - 32px)',
     top: 64,
     left: 200,
+  },
+  warningPaper: {
+    position: 'absolute',
+    outline: 0,
+    width: 400,
+    top: 'calc(50vh - 150px)',
+    left: 'calc(50vw - 200px)',
   },
   modalContent: {
     maxWidth: 480,
@@ -299,7 +306,9 @@ function AppBar() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [textboxAnchor, setTextboxAnchor] = React.useState(null);
+  const [fileAnchor, setFileAnchor] = React.useState(null);
   const [objectModalOpen, setObjectModalOpen] = React.useState(false);
+  const [warningModalOpen, setWarningModalOpen] = React.useState(false);
   const [curTab, setCurTab] = React.useState(0);
 
   const redirectToSource = () => {
@@ -310,8 +319,16 @@ function AppBar() {
     setTextboxAnchor(event.currentTarget);
   };
 
+  const handleClickFile = (event) => {
+    setFileAnchor(event.currentTarget);
+  };
+
   const handleCloseTextbox = () => {
     setTextboxAnchor(null);
+  };
+
+  const handleCloseFile = () => {
+    setFileAnchor(null);
   };
 
   const insertLabel = () => {
@@ -319,8 +336,18 @@ function AppBar() {
     handleCloseTextbox();
   }
 
+  const newFile = () => {
+    dispatch(setNewFile());
+    handleWarningModalClose();
+  }
+
   const handleObjectModalClose = () => {
     setObjectModalOpen(false);
+  };
+
+  const handleWarningModalClose = () => {
+    setWarningModalOpen(false);
+    handleCloseFile();
   };
 
   const openObjectModal = () => {
@@ -330,6 +357,10 @@ function AppBar() {
     dispatch(updateEdges([]));
     dispatch(updateSelected([]));
     setObjectModalOpen(true);
+  }
+
+  const openWarningModal = () => {
+    setWarningModalOpen(true);
   }
 
   const changeTab = (event, newValue) => {
@@ -364,7 +395,7 @@ function AppBar() {
             <Grid item xs={12}>
               <Grid container>
                 <Grid item>
-                  <Button size='small' className={classes.menuButton}>
+                  <Button size='small' className={classes.menuButton} onClick={handleClickFile}>
                     File
                   </Button>
                 </Grid>
@@ -388,9 +419,15 @@ function AppBar() {
 
         <Grid item xs>
           <div className={classes.justifyRight}>
-            <Button className={classes.button} variant='contained' onClick={redirectToSource}>
-              View Source
+            <ButtonGroup variant="contained" color='primary'>
+              <Button className={classes.button} onClick={null}>
+                Tutorial
             </Button>
+              <Button className={classes.button} onClick={redirectToSource}>
+                View Source
+            </Button>
+            </ButtonGroup>
+
           </div>
         </Grid>
       </Grid>
@@ -406,7 +443,18 @@ function AppBar() {
       >
         <Typography variant='overline' style={{ paddingLeft: 16 }}>Text Style:</Typography>
         <MenuItem onClick={insertLabel} className={classes.menuItem}>Label</MenuItem>
-        <MenuItem onClick={insertLabel} className={classes.menuItem}>Title</MenuItem>
+      </Menu>
+
+      <Menu
+        anchorEl={fileAnchor}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: "bottom" }}
+        transformOrigin={{ vertical: "top" }}
+        keepMounted
+        open={Boolean(fileAnchor)}
+        onClose={handleCloseFile}
+      >
+        <MenuItem onClick={openWarningModal} className={classes.menuItem}>New Plan</MenuItem>
       </Menu>
 
       <Modal
@@ -602,6 +650,28 @@ function AppBar() {
               }
             </Grid>
           </Grid>
+        </Paper>
+      </Modal>
+
+      <Modal
+        open={warningModalOpen}
+        onClose={null}
+        aria-labelledby="warning"
+      >
+        <Paper className={classes.warningPaper}>
+          <div style={{ padding: 24 }}>
+            <Typography color='error' variant='body1' style={{ fontWeight: 'bold' }}>Warning: Creating a new plan will override your current plan.</Typography>
+          </div>
+
+          <Grid container>
+            <Grid item xs={6} style={{ padding: 8 }}>
+              <Button variant='contained' color='primary' fullWidth onClick={newFile} >New Plan</Button>
+            </Grid>
+            <Grid item xs={6} style={{ padding: 8 }}>
+              <Button variant='contained' color='default' fullWidth onClick={handleWarningModalClose}>Cancel</Button>
+            </Grid>
+          </Grid>
+
         </Paper>
       </Modal>
     </div>

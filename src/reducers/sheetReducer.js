@@ -10,7 +10,8 @@ import {
   CREATE_WALLS,
   SET_SCALE,
   ADD_OBJECT,
-  DELETE_OBJECT
+  DELETE_OBJECT,
+  SET_NEW_FILE
 } from '../actions/types';
 
 const initializeSheet = () => {
@@ -42,7 +43,8 @@ const initState = {
     walls: initializeSheet(),
     edges: initializeSheet(),
     selected: initializeSheet()
-  }
+  },
+  newFile: {}
 }
 
 const sheetReducer = (state = initState, action) => {
@@ -51,6 +53,11 @@ const sheetReducer = (state = initState, action) => {
       return {
         ...state,
         scale: action.payload
+      }
+    case SET_NEW_FILE:
+      return {
+        ...initState,
+        newFile: action.payload
       }
     case SET_CUR_SHAPE:
       return {
