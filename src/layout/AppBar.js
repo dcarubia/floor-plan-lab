@@ -5,6 +5,8 @@ import { addText, addObject } from '../actions/sheetActions';
 import { setAnchor, updateEdges, setCurShape, updateSelected, setNewFile } from '../actions/sheetActions';
 import { setTool } from '../actions/toolActions';
 import { useDispatch } from 'react-redux';
+import LinearScaleIcon from '@material-ui/icons/LinearScale';
+import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall';
 import logo from '../images/logo.png';
 import { getObjectSize } from '../components/objectInfo';
 import singleDoor from '../images/objects/singleDoor.png';
@@ -39,6 +41,12 @@ import tableRect from '../images/objects/tableRect.png';
 import queenBed from '../images/objects/queenBed.png';
 import twinBed from '../images/objects/twinBed.png';
 import changeScaleGif from '../images/tutorial/changeScale.gif';
+import selectToolGif from '../images/tutorial/selectTool.gif';
+import moveToolGif from '../images/tutorial/moveTool.gif';
+import lineToolGif from '../images/tutorial/lineTool.gif';
+import drawToolGif from '../images/tutorial/drawTool.gif';
+import eraseToolGif from '../images/tutorial/eraseTool.gif';
+import rectWallGif from '../images/tutorial/rectWall.gif';
 import plan1 from '../images/tutorial/Plan1.png';
 
 const useStyles = makeStyles({
@@ -96,9 +104,9 @@ const useStyles = makeStyles({
   tutorialPaper: {
     position: 'absolute',
     outline: 0,
-    width: 860,
-    top: 'calc(50vh - 350px)',
-    left: 'calc(50vw - 420px)',
+    width: 1000,
+    top: 'calc(50vh - 300px)',
+    left: 'calc(50vw - 500px)',
   },
   modalContent: {
     maxWidth: 480,
@@ -118,7 +126,7 @@ const useStyles = makeStyles({
     paddingBottom: 8
   },
   gif: {
-    maxHeight: 380
+    maxHeight: 390
   }
 });
 
@@ -324,6 +332,7 @@ function AppBar() {
   const [tutorialModalOpen, setTutorialModalOpen] = React.useState(true);
   const [curTab, setCurTab] = React.useState(0);
   const [tutorialTab, setTutorialTab] = React.useState(1);
+  const [toolbarTab, setToolbarTab] = React.useState(0);
 
 
   const handleClickTextbox = (event) => {
@@ -395,6 +404,10 @@ function AppBar() {
     const objectHeight = getObjectSize(objectType).h;
     return Math.round((objectHeight / 36) * 80);
   }
+
+  const handleChangeToolbarTab = (event, newValue) => {
+    setToolbarTab(newValue);
+  };
 
   return (
     <div>
@@ -731,7 +744,7 @@ function AppBar() {
         aria-labelledby="tutorial"
       >
         <Paper className={classes.tutorialPaper}>
-          <div style={{ padding: 32, minHeight: 580 }}>
+          <div style={{ padding: '32px 8px 16px 8px', minHeight: 520 }}>
             {tutorialTab === 1 ?
               <Grid container spacing={1}>
                 <Grid item xs={12}>
@@ -741,53 +754,148 @@ function AppBar() {
                 </Grid>
                 <Grid item xs={12}>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This short tutorial will show you how to design a floorplan using the built in tools and features.</Typography>
+                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This tutorial will show you how to design a floorplan using the built in tools and features.</Typography>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant='subtitle1' style={{ fontSize: 18 }} >At any point you can jump right in by pressing "Skip Tutorial".</Typography>
+                    <Typography variant='subtitle1' style={{ fontSize: 16 }} >At any point you can press "Skip Tutorial" to start designing.</Typography>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img src={plan1} style={{ maxHeight: 450 }}></img>
+                    <img src={plan1} className={classes.gif}></img>
                   </div>
                 </Grid>
               </Grid>
               : tutorialTab === 2 ?
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
-                    <div style={{ marginBottom: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Project Scale</Typography>
                     </div>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Start each project by specifying a grid scale.</Typography>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Start each project by specifying a grid scale.</Typography>
+                    </div>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle1' style={{ fontSize: 18 }} >By default each grid line equals 1 ft. For more accurate object sizes we recommend decreaing the scale to 6 in. or 8 in. </Typography>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Typography variant='subtitle1' style={{ fontSize: 16 }} >By default each grid line equals 1 ft. For more accurate object sizes we recommend decreaing the scale. </Typography>
+                    </div>
                   </Grid>
                   <Grid item xs={12}>
-                    <img src={changeScaleGif} className={classes.gif}></img>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <img src={changeScaleGif} className={classes.gif}></img>
+                    </div>
                   </Grid>
                 </Grid>
                 : tutorialTab === 3 ?
                   <Grid container spacing={1}>
                     <Grid item xs={12}>
-                      <div style={{ marginBottom: 8 }}>
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Toolbar</Typography>
                       </div>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>The toolbar is located on the left side of your screen.</Typography>
+
+                    <Grid item xs={12} style={{ padding: 0, marginRight: 8, marginBottom: 24, borderBottom: '1px solid #d5d5d5' }}>
+                      <Tabs
+                        orientation='horizontal'
+                        value={toolbarTab}
+                        onChange={handleChangeToolbarTab}
+                        variant='fullWidth'
+                        indicatorColor="primary"
+                        textColor="primary"
+                      >
+                        <Tab icon={<span className="fas fa-mouse-pointer"></span>} label="MOVE" />
+                        <Tab icon={<PhotoSizeSelectSmallIcon />} label="SELECT" />
+                        <Tab icon={<LinearScaleIcon />} label="LINEAR WALL" />
+                        <Tab icon={<span className="fas fa-vector-square"></span>} label="RECT WALL" />
+                        <Tab icon={<span className="fas fa-pen"></span>} label="DRAW" />
+                        <Tab icon={<span className="fas fa-eraser"></span>} label="ERASE" />
+                      </Tabs>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant='subtitle1' style={{ fontSize: 18 }} >It allows you to switch between the following tools: </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <img src={changeScaleGif} className={classes.gif}></img>
-                    </Grid>
+                    {toolbarTab === 0 ? // MOVE
+                      <>
+                        <Grid item xs={5} style={{ padding: '8px 0px 0px 36px' }}>
+                          <img src={moveToolGif} style={{ maxWidth: 360 }}></img>
+                        </Grid>
+                        <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
+                          <Typography variant='h4'>Move Tool</Typography>
+                          <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Position objects and labels.</Typography>
+                          <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click and drag an object or label to move it.</Typography>
+                          <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>When an object is selected, an object toolbar will appear at the top right of your screen. Use this toolbar to rotate, flip, or delete the selected object. </Typography>
+                          <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: Clicking an object at any time will automatically enable the move tool</Typography>
+                        </Grid>
+                      </>
+                      : toolbarTab === 1 ? // SELECT
+                        <>
+                          <Grid item xs={5} style={{ padding: '8px 0px 0px 36px' }}>
+                            <img src={selectToolGif} style={{ maxWidth: 360 }}></img>
+                          </Grid>
+                          <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
+                            <Typography variant='h4'>Selection Tool</Typography>
+                            <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Click and drag to select grid-squares.</Typography>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[W] - </strong>Creates a wall from the selected grid-squares</Typography>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[BACKSPACE] - </strong>Deletes selected walls</Typography>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Cancels current selection</Typography>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: The selection tool has no affect on objects or labels</Typography>
+                          </Grid>
+                        </>
+                        : toolbarTab === 2 ? // LINEAR WALL
+                          <>
+                            <Grid item xs={5} style={{ padding: '8px 0px 0px 36px' }}>
+                              <img src={lineToolGif} style={{ maxWidth: 360 }}></img>
+                            </Grid>
+                            <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
+                              <Typography variant='h4'>Linear Wall Tool</Typography>
+                              <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Build straight walls one grid-square in width.</Typography>
+                              <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square in the same row or column to build a wall.</Typography>
+                              <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
+                              <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Removes anchor point</Typography>
+                              <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: You can use the linear wall tool to measure distances without building a wall</Typography>
+                            </Grid>
+                          </>
+                          : toolbarTab === 3 ? // RECTANGULAR WALL
+                            <>
+                              <Grid item xs={5} style={{ padding: '8px 0px 0px 36px' }}>
+                                <img src={rectWallGif} style={{ maxWidth: 360 }}></img>
+                              </Grid>
+                              <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
+                                <Typography variant='h4'>Rectangular Wall Tool</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Build a rectangular room surrounded by walls.</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build a rectangular wall.</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Removes anchor point</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: You can use the rectangular wall tool to measure dimensions and room area without building a wall</Typography>
+                              </Grid>
+                            </>
+                            : toolbarTab === 4 ? // DRAW
+                              <>
+                                <Grid item xs={5} style={{ padding: '8px 0px 0px 36px' }}>
+                                  <img src={drawToolGif} style={{ maxWidth: 360 }}></img>
+                                </Grid>
+                                <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
+                                  <Typography variant='h4'>Draw Tool</Typography>
+                                  <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Freely draw walls.</Typography>
+                                  <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click and drag to convert empty grid-squares into walls.</Typography>
+                                </Grid>
+                              </>
+                              : toolbarTab === 5 ? // ERASE
+                                <>
+                                  <Grid item xs={5} style={{ padding: '8px 0px 0px 36px' }}>
+                                    <img src={eraseToolGif} style={{ maxWidth: 360 }}></img>
+                                  </Grid>
+                                  <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
+                                    <Typography variant='h4'>Eraser Tool</Typography>
+                                    <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Remove walls.</Typography>
+                                    <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click and drag to erase a wall.</Typography>
+                                  </Grid>
+                                </>
+                                : null
+                    }
                   </Grid>
                   : null
             }
