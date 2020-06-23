@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Fab, Tooltip, Modal, Paper } from '@material-ui/core';
 import Box from '../components/box';
 import ReactCursorPosition from 'react-cursor-position';
 import '@fortawesome/fontawesome-free/css/all.css';
-import { useSelector } from 'react-redux';
 import TextContainer from '../components/TextContainer';
 import ObjectContainer from '../components/ObjectContainer';
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { boxSize } from '../config';
 
 const useStyles = makeStyles({

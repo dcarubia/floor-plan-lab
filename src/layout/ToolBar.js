@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, IconButton, Button, Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import '@fortawesome/fontawesome-free/css/all.css';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import { setTool } from '../actions/toolActions';

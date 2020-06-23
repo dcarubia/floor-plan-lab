@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import { setCursorPosition } from '../actions/cursorActions';
 import { setAnchor, updateEdges, updateWalls, setCurShape, updateSelected } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -279,7 +278,7 @@ function Box({ isPositionOutside, boxProps }) {
           borderBottom: '1px solid #becddb',
         }
           :
-          isAnchor && getCurrentTool() != 'SELECT' ? {
+          isAnchor && getCurrentTool() !== 'SELECT' ? {
             backgroundColor: '#a8b7c4',
             borderRight: '1px solid #a3b9cc',
             borderBottom: '1px solid #a3b9cc',

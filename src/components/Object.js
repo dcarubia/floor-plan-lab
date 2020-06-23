@@ -1,10 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Grid, Typography, TextField, Tooltip, Paper, Button } from '@material-ui/core';
+import { Tooltip, Paper, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Draggable from 'react-draggable';
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import CloseIcon from '@material-ui/icons/Close';
-import DoneIcon from '@material-ui/icons/Done';
 import { setAnchor, updateEdges, setCurShape, updateSelected, deleteObject } from '../actions/sheetActions';
 import { setTool } from '../actions/toolActions';
 import { boxSize } from '../config';
@@ -401,6 +398,7 @@ function ObjectEl({ id, type }) {
         <div className={classes.root} ref={containerRef} onClick={isEditMode} style={
           editMode ? { border: '1px solid #4281ff' } : {}}>
           <img
+            draggable='false'
             src={getImageSrc(type)}
             height={imgRotation === 90 || imgRotation === 270 ? getImageWidth(type) : getImageHeight(type)}
             width={imgRotation === 90 || imgRotation === 270 ? getImageHeight(type) : getImageWidth(type)}
@@ -410,10 +408,11 @@ function ObjectEl({ id, type }) {
               transform: `scaleX(${imgDirection})`,
               userDrag: 'none',
               userSelect: 'none',
-              MozUserSelect: 'none',
+              MozUserDrag: 'none',
               WebkitUserDrag: 'none',
               WebkitUserSelect: 'none',
-              msUserSelect: 'none'
+              msUserSelect: 'none',
+              msUserDrag: 'none',
             }}
           />
         </div>

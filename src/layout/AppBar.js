@@ -137,186 +137,186 @@ const objects = {
     {
       id: 'SINGLE_DOOR',
       file: singleDoor,
-      label: 'Single Door - 32\"'
+      label: 'Single Door - 32"'
     },
     {
       id: 'DOUBLE_DOOR',
       file: doubleDoor,
-      label: 'Double Door - 64\"'
+      label: 'Double Door - 64"'
     },
     {
       id: 'SLIDING_DOOR',
       file: slidingDoor,
-      label: 'Sliding Door - 64\"'
+      label: 'Sliding Door - 64"'
     },
     {
       id: 'POCKET_DOOR',
       file: pocketDoor,
-      label: 'Pocket Door - 64\"'
+      label: 'Pocket Door - 64"'
     },
     {
       id: 'BIFOLD_DOOR',
       file: bifoldDoor,
-      label: 'Bi-fold Door - 60\"'
+      label: 'Bi-fold Door - 60"'
     },
   ],
   windows: [
     {
       id: 'WINDOW_32',
       file: window,
-      label: 'Window - 32\"'
+      label: 'Window - 32"'
     },
     {
       id: 'WINDOW_48',
       file: window,
-      label: 'Window - 48\"'
+      label: 'Window - 48"'
     },
     {
       id: 'WINDOW_60',
       file: window,
-      label: 'Window - 60\"'
+      label: 'Window - 60"'
     },
   ],
   kitchen: [
     {
       id: 'COUNTER_END',
       file: counterEnd,
-      label: 'Counter End - 24\"'
+      label: 'Counter End - 24"'
     },
     {
       id: 'COUNTER_MIDDLE',
       file: counterMiddle,
-      label: 'Counter Middle - 24\"'
+      label: 'Counter Middle - 24"'
     },
     {
       id: 'COUNTER_CORNER',
       file: counterCorner,
-      label: 'Counter Corner - 24\"'
+      label: 'Counter Corner - 24"'
     },
     {
       id: 'COOK_TOP',
       file: cookTop,
-      label: 'Cook Top - 24\"'
+      label: 'Cook Top - 24"'
     },
     {
       id: 'DISHWASHER',
       file: dishwasher,
-      label: 'Dishwasher - 24\"'
+      label: 'Dishwasher - 24"'
     },
     {
       id: 'SINK',
       file: sink,
-      label: 'Sink - 24\"'
+      label: 'Sink - 24"'
     },
     {
       id: 'DOUBLE_SINK',
       file: doubleSink,
-      label: 'Double Sink - 24\"'
+      label: 'Double Sink - 24"'
     },
     {
       id: 'REFRIGERATOR',
       file: refrigerator,
-      label: 'Refrigerator - 24\"'
+      label: 'Refrigerator - 24"'
     },
     {
       id: 'OVEN',
       file: oven,
-      label: 'Oven - 24\"'
+      label: 'Oven - 24"'
     },
   ],
   bathroom: [
     {
       id: 'BR_SINK',
       file: bathroomSink,
-      label: 'Bathroom Sink - 24\"'
+      label: 'Bathroom Sink - 24"'
     },
     {
       id: 'BATH',
       file: bath,
-      label: 'Bath - 60\"'
+      label: 'Bath - 60"'
     },
     {
       id: 'SHOWER_RECT',
       file: showerRect,
-      label: 'Shower Rect. - 60\"'
+      label: 'Shower Rect. - 60"'
     },
     {
       id: 'SHOWER_SQUARE',
       file: showerSquare,
-      label: 'Shower Square - 32\"'
+      label: 'Shower Square - 32"'
     },
     {
       id: 'TOILET',
       file: toilet,
-      label: 'Toilet - 30\"'
+      label: 'Toilet - 30"'
     },
   ],
   livingRoom: [
     {
       id: 'CHAIR',
       file: chair,
-      label: 'Chair - 35\"'
+      label: 'Chair - 35"'
     },
     {
       id: 'LOVESEAT',
       file: loveSeat,
-      label: 'Loveseat - 58\"'
+      label: 'Loveseat - 58"'
     },
     {
       id: 'SOFA',
       file: sofa,
-      label: 'Sofa - 84\"'
+      label: 'Sofa - 84"'
     },
     {
       id: 'COFFEE_TABLE',
       file: coffeeTable,
-      label: 'Coffee Table - 40\"'
+      label: 'Coffee Table - 40"'
     },
     {
       id: 'END_TABLE',
       file: endTable,
-      label: 'End Table - 18\"'
+      label: 'End Table - 18"'
     },
   ],
   diningRoom: [
     {
       id: 'TABLE_ROUND',
       file: tableRound,
-      label: 'Round Table - 36\"'
+      label: 'Round Table - 36"'
     },
     {
       id: 'TABLE_RECT',
       file: tableRect,
-      label: 'Rectangular Table - 48\"'
+      label: 'Rectangular Table - 48"'
     },
   ],
   bedroom: [
     {
       id: 'QUEEN_BED',
       file: queenBed,
-      label: 'Queen Bed - 60\"x80\"'
+      label: 'Queen Bed - 60"x80"'
     },
     {
       id: 'TWIN_BED',
       file: twinBed,
-      label: 'Twin Bed - 38\"x75\"'
+      label: 'Twin Bed - 38"x75"'
     },
     {
       id: 'END_TABLE',
       file: endTable,
-      label: 'End Table - 18\"'
+      label: 'End Table - 18"'
     },
   ],
   laundry: [
     {
       id: 'WASHER',
       file: washer,
-      label: 'Washer - 27\"'
+      label: 'Washer - 27"'
     },
     {
       id: 'DRYER',
       file: dryer,
-      label: 'Dryer - 27\"'
+      label: 'Dryer - 27"'
     },
   ],
   stairs: [

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Fab, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { setMouseDown } from '../actions/cursorActions';
 import { deleteWalls, createWalls, setAnchor, updateEdges, setCurShape, updateSelected } from '../actions/sheetActions';
@@ -83,7 +82,7 @@ function MouseToolTip() {
               {shape.type === 'LINE' ?
                 <span>
                   <strong>
-                    {getFeet(shape.len) + '\'' + getInches(shape.len) + '\"'}
+                    {getFeet(shape.len) + '\'' + getInches(shape.len) + '"'}
                   </strong>
                 </span>
                 :
@@ -91,9 +90,9 @@ function MouseToolTip() {
                   <p className={classes.p}>
                     <span>
                       {'w: '}
-                      <strong>{getFeet(shape.width) + '\'' + getInches(shape.width) + '\"'}</strong>
+                      <strong>{getFeet(shape.width) + '\'' + getInches(shape.width) + '"'}</strong>
                       {', h: '}
-                      <strong>{getFeet(shape.height) + '\'' + getInches(shape.height) + '\"'}</strong>
+                      <strong>{getFeet(shape.height) + '\'' + getInches(shape.height) + '"'}</strong>
                     </span>
                   </p>
                   <p className={classes.p}>
