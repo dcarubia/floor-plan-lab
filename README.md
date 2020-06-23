@@ -9,6 +9,8 @@ Floor Plan Lab is an open source React app intended to be used as a sandbox to q
 
 Floor Plan Lab is currently a beta version. Future updates will include an extended library of objects and add features such as save/export and dimensions.
 
+![](https://github.com/dcarubia/floor-plan-lab/blob/master/FloorPlanLab_Screenshot_01.png | width=200)
+
 ## Built With
 
 * [React](https://reactjs.org/)
