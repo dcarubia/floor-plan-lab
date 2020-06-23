@@ -7,7 +7,7 @@ A virtual graph paper sandbox with tools to easily design awesome floor plans.
 ## About
 Floor Plan Lab is an open source React app intended to be used as a sandbox to quickly design floor plans. It uses a customizable grid scale to automatically size objects such as doors, furniture, and appliances. 
 
-<img src="https://github.com/dcarubia/floor-plan-lab/blob/master/FloorPlanLab_Screenshot_01.png" width="900">
+<img src="https://github.com/dcarubia/floor-plan-lab/blob/master/FloorPlanLab_Screenshot_01.png" width="850">
 
 Floor Plan Lab is currently a beta version. Future updates will include an extended library of objects and add features such as save/export and dimensions.
 
