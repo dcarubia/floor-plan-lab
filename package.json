@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-cursor-position": "^3.0.3",
+    "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.2",
     "react-numeric-input": "^2.2.3",
