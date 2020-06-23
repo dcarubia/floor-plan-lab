@@ -40,12 +40,14 @@ import tableRound from '../images/objects/tableRound.png';
 import tableRect from '../images/objects/tableRect.png';
 import queenBed from '../images/objects/queenBed.png';
 import twinBed from '../images/objects/twinBed.png';
-import changeScaleGif from '../images/tutorial/changeScale.gif';
+import changeScaleGif from '../images/tutorial/changeScale2.gif';
 import selectToolGif from '../images/tutorial/selectTool.gif';
 import moveToolGif from '../images/tutorial/moveTool.gif';
 import lineToolGif from '../images/tutorial/lineTool.gif';
 import drawToolGif from '../images/tutorial/drawTool.gif';
 import eraseToolGif from '../images/tutorial/eraseTool.gif';
+import placeObjectGif from '../images/tutorial/placeObject.gif';
+import placeTextGif from '../images/tutorial/placeText.gif';
 import rectWallGif from '../images/tutorial/rectWall.gif';
 import plan1 from '../images/tutorial/Plan1.png';
 
@@ -90,8 +92,8 @@ const useStyles = makeStyles({
   paper: {
     position: 'absolute',
     outline: 0,
-    height: 'calc(100vh - 64px - 32px)',
-    top: 64,
+    height: 680,
+    top: 60,
     left: 200,
   },
   warningPaper: {
@@ -419,9 +421,15 @@ function AppBar() {
 
         <Grid item>
           <Grid container>
-            <Grid item xs={12}>
+            <Grid item>
               <Typography variant='h6' style={{ fontWeight: 'normal', paddingLeft: 4 }}>
                 Floor Plan Lab
+              </Typography>
+            </Grid>
+
+            <Grid item xs style={{ paddingTop: 2 }}>
+              <Typography variant='caption' style={{ fontSize: 10, paddingLeft: 8, color: '#bcd0e0' }}>
+                BETA
               </Typography>
             </Grid>
 
@@ -500,7 +508,7 @@ function AppBar() {
       >
         <Paper className={classes.paper}>
           <Grid container>
-            <Grid item style={{ borderRight: '1px solid #d5d5d5', height: 'calc(100vh - 64px - 32px)' }}>
+            <Grid item style={{ borderRight: '1px solid #d5d5d5', height: 680 }}>
               <Tabs
                 orientation='vertical'
                 value={curTab}
@@ -723,7 +731,7 @@ function AppBar() {
       >
         <Paper className={classes.warningPaper}>
           <div style={{ padding: 24 }}>
-            <Typography color='error' variant='body1' style={{ fontWeight: 'bold' }}>Warning: Creating a new plan will override the current plan.</Typography>
+            <Typography variant='body1' style={{ fontWeight: 'bold' }}>Warning: Creating a new plan will override the current plan.</Typography>
           </div>
 
           <Grid container>
@@ -754,17 +762,18 @@ function AppBar() {
                 </Grid>
                 <Grid item xs={12}>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This tutorial will show you how to design a floorplan using the built in tools and features.</Typography>
+                    <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>This tutorial will show you how to design a floorplan using the built in tools.</Typography>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <img src={plan1} className={classes.gif}></img>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Typography variant='subtitle1' style={{ fontSize: 16 }} >At any point you can press "Skip Tutorial" to start designing.</Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12}>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img src={plan1} className={classes.gif}></img>
                   </div>
                 </Grid>
               </Grid>
@@ -780,14 +789,15 @@ function AppBar() {
                       <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Start each project by specifying a grid scale.</Typography>
                     </div>
                   </Grid>
+
                   <Grid item xs={12}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Typography variant='subtitle1' style={{ fontSize: 16 }} >By default each grid line equals 1 ft. For more accurate object sizes we recommend decreaing the scale. </Typography>
+                      <img src={changeScaleGif} className={classes.gif}></img>
                     </div>
                   </Grid>
                   <Grid item xs={12}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <img src={changeScaleGif} className={classes.gif}></img>
+                      <Typography variant='subtitle1' style={{ fontSize: 16 }} >By default each grid line equals 1 ft. For more accurate object proportions we recommend decreaing the scale. </Typography>
                     </div>
                   </Grid>
                 </Grid>
@@ -866,7 +876,7 @@ function AppBar() {
                               <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
                                 <Typography variant='h4'>Rectangular Wall Tool</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Build a rectangular room surrounded by walls.</Typography>
-                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build a rectangular wall.</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build a wall.</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Removes anchor point</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: You can use the rectangular wall tool to measure dimensions and room area without building a wall</Typography>
@@ -897,7 +907,53 @@ function AppBar() {
                                 : null
                     }
                   </Grid>
-                  : null
+                  : tutorialTab === 4 ?
+                    <Grid container spacing={1}>
+
+
+                      <Grid item xs={8}>
+                        <Grid container spacing={1} style={{ padding: '0px 24px 0px 24px' }}>
+                          <Grid item xs={12}>
+                            <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Place Objects</Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Place common floorplan symbols that scale automatically.</Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='subtitle1' style={{ fontSize: 15 }} >In the "Place Object" menu, choose a category and click on an object to place it. When overlapping, the more recently placed object will be in the front.</Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='subtitle1' style={{ fontSize: 15 }} >To delete an object, click on it to select the object, then click delete in the object toolbar located at the top right of your screen.</Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+
+                      <Grid item xs={4}>
+                        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                          <img src={placeObjectGif} style={{ maxHeight: 250 }}></img>
+                        </div>
+                      </Grid>
+
+                      <Grid item>
+                        <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: 24 }}>
+                          <img src={placeTextGif} style={{ maxHeight: 250 }}></img>
+                        </div>
+                      </Grid>
+                      <Grid item xs>
+                        <Grid container spacing={1} style={{ padding: '24px 24px 0px 24px' }}>
+                          <Grid item xs={12}>
+                            <Typography color='primary' variant='h4' style={{ fontWeight: 'bold' }}>Place Text</Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Place a draggable text label.</Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='subtitle1' style={{ fontSize: 15 }} >In the "Place Text" menu, choose "Label". Type your label and press enter or click "Save". Click on the label at any time to make changes. To move the textbox, enter edit mode then click and drag on the handle at the left side of the textbox.</Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    : null
             }
 
           </div>
@@ -908,7 +964,7 @@ function AppBar() {
             </Grid>
             <Grid item xs={3}>
               <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 4 }}>
-                <Typography variant='h6'>{tutorialTab}/9</Typography>
+                <Typography variant='h6'>{tutorialTab}/4</Typography>
               </div>
             </Grid>
             <Grid item xs={6} style={{ padding: '0px 16px 16px 16px' }}>
@@ -916,10 +972,10 @@ function AppBar() {
                 {tutorialTab > 1 ?
                   <Button variant='contained' color='default' onClick={() => setTutorialTab(tutorialTab - 1)} style={{ marginRight: 8 }}>Back</Button>
                   : null}
-                {tutorialTab < 5 ?
+                {tutorialTab < 4 ?
                   <Button variant='contained' color='primary' onClick={() => setTutorialTab(tutorialTab + 1)} >Next</Button>
                   : null}
-                {tutorialTab === 5 ?
+                {tutorialTab === 4 ?
                   <Button variant='contained' color='primary' onClick={handleTutorialModalClose} >Finish</Button>
                   : null}
               </div>
@@ -928,7 +984,7 @@ function AppBar() {
 
         </Paper>
       </Modal>
-    </div>
+    </div >
   );
 }
 

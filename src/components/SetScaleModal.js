@@ -144,7 +144,7 @@ function SetScaleModal() {
             </Grid>
 
             <Grid item xs={6}>
-              <Button fullWidth variant='contained' className={classes.saveButton} onClick={onSave}>
+              <Button fullWidth variant='contained' color='primary' onClick={onSave}>
                 Save
               </Button>
             </Grid>
