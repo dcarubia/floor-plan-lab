@@ -69,7 +69,7 @@ function App() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 16 }}>
                 <Typography variant='h6'>
-                  Coming Soon to mobile platforms!
+                  Coming soon to mobile platforms.
               </Typography>
               </div>
             </div>

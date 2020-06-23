@@ -786,7 +786,7 @@ function AppBar() {
                   </Grid>
                   <Grid item xs={12}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Start each project by specifying a grid scale.</Typography>
+                      <Typography variant='subtitle1' style={{ fontSize: 18, fontWeight: 'bold' }}>Start each project by specifying a grid scale. By default each grid line equals 1 ft.</Typography>
                     </div>
                   </Grid>
 
@@ -797,7 +797,7 @@ function AppBar() {
                   </Grid>
                   <Grid item xs={12}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Typography variant='subtitle1' style={{ fontSize: 16 }} >By default each grid line equals 1 ft. For more accurate object proportions we recommend decreaing the scale. </Typography>
+                      <Typography variant='subtitle1' style={{ fontSize: 16 }} >For more accurate object proportions we recommend decreaing the scale. </Typography>
                     </div>
                   </Grid>
                 </Grid>
@@ -862,7 +862,7 @@ function AppBar() {
                             <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
                               <Typography variant='h4'>Linear Wall Tool</Typography>
                               <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Build straight walls one grid-square in width.</Typography>
-                              <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square in the same row or column to build a wall.</Typography>
+                              <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square in the same row or column to build the wall.</Typography>
                               <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
                               <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Removes anchor point</Typography>
                               <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: You can use the linear wall tool to measure distances without building a wall</Typography>
@@ -876,7 +876,7 @@ function AppBar() {
                               <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
                                 <Typography variant='h4'>Rectangular Wall Tool</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Build a rectangular room surrounded by walls.</Typography>
-                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build a wall.</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build the wall.</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Removes anchor point</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: You can use the rectangular wall tool to measure dimensions and room area without building a wall</Typography>
