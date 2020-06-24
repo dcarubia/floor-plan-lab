@@ -876,7 +876,7 @@ function AppBar() {
                               <Grid item xs={7} style={{ paddingLeft: 24, paddingRight: 24 }}>
                                 <Typography variant='h4'>Rectangular Wall Tool</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 21, margin: '0px 0px 0px 0px' }}>Build a rectangular room surrounded by walls.</Typography>
-                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build the wall.</Typography>
+                                <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Click on a grid-square or wall to place the first anchor point, then click a different square to build the walls.</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Keyboard commands:</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '4px 0px 0px 0px' }}><strong>[ESC] - </strong>Removes anchor point</Typography>
                                 <Typography variant='subtitle1' style={{ fontSize: 18, margin: '24px 0px 0px 0px' }}>Note: You can use the rectangular wall tool to measure dimensions and room area without building a wall</Typography>
