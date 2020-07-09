@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     fontSize: 20,
     padding: '16px 0px 16px 0px',
     minWidth: 54,
+    maxWidth: 54,
     marginTop: 2,
     '&:hover': {
       backgroundColor: '#43505b',
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
     color: '#fff',
     fontSize: 20,
     minWidth: 54,
+    maxWidth: 54,
     marginTop: 2,
     padding: '16px 0px 16px 0px',
     '&:hover': {

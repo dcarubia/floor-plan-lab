@@ -53,7 +53,7 @@ function App() {
                   <ToolBar />
                 </Grid>
 
-                <Grid item xs>
+                <Grid item xs style={{ height: 'calc(100vh - 64px)', overflow: 'scroll' }}>
                   <GridContainer />
                 </Grid>
               </Grid>
@@ -63,14 +63,19 @@ function App() {
               <SetScaleModal />
             </>
             :
-            <div style={{ position: 'fixed', top: '35%', width: '100vw' }} >
+            <div style={{ position: 'fixed', top: '30%', width: '100vw' }} >
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <img width="112" height="112" src={logo} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 16 }}>
                 <Typography variant='h6'>
                   Coming soon to mobile platforms.
-              </Typography>
+                </Typography>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 4 }}>
+                <Typography variant='subtitle2'>
+                  Floor Plan Lab is currently only available on desktop.
+                </Typography>
               </div>
             </div>
         }

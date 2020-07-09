@@ -8,16 +8,10 @@ import ObjectContainer from '../components/ObjectContainer';
 import { boxSize } from '../config';
 
 const useStyles = makeStyles({
-  root: {
-    height: 'calc(100vh - 64px)',
-    width: 'calc(100vw - 54px)',
-    overflow: 'scroll'
-  },
   container: {
     position: 'relative',
     width: `calc(150 * ${boxSize + 1})`
   },
-
 });
 
 /* --------------------------------------------
@@ -54,30 +48,28 @@ function GridContainer() {
   const [sheet, setSheet] = useState(initializeSheet);
 
   return (
-    <div className={classes.root}>
-      <div className={classes.container}>
+    <div className={classes.container}>
 
-        {sheet.map((row) =>
+      {sheet.map((row) =>
 
-          <div key={row.index}
-            style={{
-              whiteSpace: 'nowrap',
-              fontSize: 0
-            }}>
+        <div key={row.index}
+          style={{
+            whiteSpace: 'nowrap',
+            fontSize: 0
+          }}>
 
-            {row.elements.map((box) =>
-              <ReactCursorPosition key={box.col} style={{ display: 'inline-block' }}>
-                <Box boxProps={box} />
-              </ReactCursorPosition>
-            )}
+          {row.elements.map((box) =>
+            <ReactCursorPosition key={box.col} style={{ display: 'inline-block' }}>
+              <Box boxProps={box} />
+            </ReactCursorPosition>
+          )}
 
-          </div>
+        </div>
 
-        )}
+      )}
 
-        <ObjectContainer />
-        <TextContainer />
-      </div>
+      <ObjectContainer />
+      <TextContainer />
     </div>
 
   );
