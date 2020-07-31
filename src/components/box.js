@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { setCursorPosition } from '../actions/cursorActions';
-import { setAnchor, updateEdges, updateWalls, setCurShape, updateSelected } from '../actions/sheetActions';
+import { setAnchor, updateEdges, updateWalls, setCurShape, updateSelected, setWall } from '../actions/sheetActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getState } from '../index';
 import { boxSize } from '../config';
@@ -29,17 +29,10 @@ function Box({ isPositionOutside, boxProps }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [positionOutside, setPositionOutside] = React.useState(isPositionOutside);
-  const [isWall, setIsWall] = React.useState(boxProps.isWall);
+  const isWall = useSelector(state => state.sheet.walls[boxProps.row][boxProps.col]);
   const isEdge = useSelector(state => state.sheet.data.edges[boxProps.row][boxProps.col]);
-  const setWall = useSelector(state => state.sheet.data.walls[boxProps.row][boxProps.col]);
   const isAnchor = useSelector(state => state.sheet.data.anchors[boxProps.row][boxProps.col]);
   const isSelected = useSelector(state => state.sheet.data.selected[boxProps.row][boxProps.col]);
-  const createNewFile = useSelector(state => state.sheet.newFile);
-
-  React.useEffect(() => {
-    setIsWall(false);
-  }, [createNewFile])
-
 
   const getMouseDown = () => {
     return getState().cursor.mouseDown;
@@ -169,14 +162,6 @@ function Box({ isPositionOutside, boxProps }) {
   }
 
   React.useEffect(() => {
-    if (setWall) {
-      setIsWall(true);
-    } else if (setWall === false) {
-      setIsWall(false);
-    }
-  }, [setWall])
-
-  React.useEffect(() => {
     if (!isPositionOutside) {
       // Cursor is inside box
       const currentTool = getCurrentTool();
@@ -205,10 +190,10 @@ function Box({ isPositionOutside, boxProps }) {
       }
       if (getMouseDown()) {
         if (currentTool === 'DRAW') {
-          setIsWall(true);
+          dispatch(setWall({ value: true, row: boxProps.row, col: boxProps.col }));
         }
         if (currentTool === 'ERASE') {
-          setIsWall(false);
+          dispatch(setWall({ value: false, row: boxProps.row, col: boxProps.col }));
         }
       }
     }
@@ -219,10 +204,10 @@ function Box({ isPositionOutside, boxProps }) {
     const currentTool = getCurrentTool();
     switch (currentTool) {
       case 'DRAW':
-        setIsWall(true);
+        dispatch(setWall({ value: true, row: boxProps.row, col: boxProps.col }));
         break;
       case 'ERASE':
-        setIsWall(false);
+        dispatch(setWall({ value: false, row: boxProps.row, col: boxProps.col }));
         break;
       case 'LINE':
         const anchor = getAnchor();

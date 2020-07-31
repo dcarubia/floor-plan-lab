@@ -1,10 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab, ButtonGroup } from '@material-ui/core';
+import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab, ButtonGroup, Divider } from '@material-ui/core';
 import { addText, addObject } from '../actions/sheetActions';
 import { setAnchor, updateEdges, setCurShape, updateSelected, setNewFile } from '../actions/sheetActions';
 import { setTool } from '../actions/toolActions';
 import { useDispatch } from 'react-redux';
+import { getState } from '../index';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall';
 import logo from '../images/logo.png';
@@ -411,6 +412,18 @@ function AppBar() {
     setToolbarTab(newValue);
   };
 
+  const saveFile = () => {
+    const curState = getState().sheet;
+    const state = {
+      scale: curState.scale,
+      text: curState.text,
+      objects: curState.objects,
+      walls: curState.walls
+    };
+    const stateJSON = JSON.stringify(state);
+    console.log(stateJSON);
+  }
+
   return (
     <div>
       <Grid container className={classes.appBarContainer}>
@@ -422,7 +435,7 @@ function AppBar() {
         <Grid item>
           <Grid container>
             <Grid item>
-              <Typography variant='h6' style={{ fontWeight: 'normal', paddingLeft: 4 }}>
+              <Typography variant='h6' style={{ fontWeight: 700, paddingLeft: 4, fontFamily: "'Mulish', sans-serif" }}>
                 Floor Plan Lab
               </Typography>
             </Grid>
@@ -498,7 +511,10 @@ function AppBar() {
         open={Boolean(fileAnchor)}
         onClose={handleCloseFile}
       >
+        <MenuItem onClick={saveFile} className={classes.menuItem}>Save</MenuItem>
+        <Divider />
         <MenuItem onClick={openWarningModal} className={classes.menuItem}>New</MenuItem>
+        <MenuItem className={classes.menuItem}>Open</MenuItem>
       </Menu>
 
       <Modal

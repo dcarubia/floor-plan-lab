@@ -12,7 +12,8 @@ import {
   ADD_OBJECT,
   DELETE_OBJECT,
   SET_NEW_FILE,
-  UPDATE_OBJECT
+  UPDATE_OBJECT,
+  SET_WALL
 } from '../actions/types';
 
 const initializeSheet = () => {
@@ -30,6 +31,21 @@ const initializeSheet = () => {
   return rows;
 };
 
+const initializeWalls = () => {
+  const rows = [];
+  // Create 100 rows
+  for (let i = 0; i < 100; i++) {
+    const curRow = [];
+    for (let j = 0; j < 150; j++) {
+      // Create 100 items in each row
+      curRow.push(false)
+    }
+    // add current row to rows array
+    rows.push(curRow);
+  }
+  return rows;
+};
+
 const initState = {
   scale: {
     ft: 1,
@@ -38,14 +54,13 @@ const initState = {
   curShape: null,
   text: [],
   objects: [],
+  walls: initializeWalls(),
   anchor: null,
   data: {
     anchors: initializeSheet(),
-    walls: initializeSheet(),
     edges: initializeSheet(),
     selected: initializeSheet()
-  },
-  newFile: {}
+  }
 }
 
 const sheetReducer = (state = initState, action) => {
@@ -57,8 +72,7 @@ const sheetReducer = (state = initState, action) => {
       }
     case SET_NEW_FILE:
       return {
-        ...initState,
-        newFile: action.payload
+        ...initState
       }
     case SET_CUR_SHAPE:
       return {
@@ -83,7 +97,7 @@ const sheetReducer = (state = initState, action) => {
     case UPDATE_OBJECT:
       const newObjects = state.objects;
       for (let i in newObjects) {
-        if (newObjects[i].id == action.payload.id) {
+        if (newObjects[i].id === action.payload.id) {
           newObjects[i].position = action.payload.position;
           break; // Stop the loop
         }
@@ -119,52 +133,60 @@ const sheetReducer = (state = initState, action) => {
         ...state,
         data: {
           ...state.data,
-          walls: initializeSheet(),
           edges: newEdges
         }
       }
     case UPDATE_WALLS:
-      const newWalls = initializeSheet();
+      const newWalls = [...state.walls];
       action.payload.forEach(wallPosition => {
         newWalls[wallPosition.x][wallPosition.y] = true;
       });
       return {
         ...state,
+        walls: newWalls,
         data: {
           ...state.data,
           edges: initializeSheet(),
-          walls: newWalls
         }
       }
     case DELETE_WALLS:
-      const newWalls1 = [];
+      const newWalls1 = [...state.walls];
       for (let r = 0; r < state.data.selected.length; r++) {
-        const row = [];
         for (let c = 0; c < state.data.selected[0].length; c++) {
-          if (state.data.selected[r][c]) { row.push(false); }
-          else { row.push(null); }
+          if (state.data.selected[r][c]) { newWalls1[r][c] = false; }
         }
-        newWalls1.push(row);
       }
       return {
         ...state,
         anchor: null,
+        walls: newWalls1,
         data: {
           ...state.data,
           selected: initializeSheet(),
-          walls: newWalls1
         }
       }
     case CREATE_WALLS:
-      const newWalls2 = state.data.selected;
+      const newWalls2 = [...state.walls];
+      for (let r = 0; r < state.data.selected.length; r++) {
+        for (let c = 0; c < state.data.selected[0].length; c++) {
+          if (state.data.selected[r][c]) { newWalls2[r][c] = true; }
+        }
+      }
       return {
         ...state,
         anchor: null,
+        walls: newWalls2,
         data: {
           ...state.data,
           selected: initializeSheet(),
-          walls: newWalls2
         }
+      }
+    case SET_WALL:
+      const newWalls3 = [...state.walls];
+      newWalls3[action.payload.row][action.payload.col] = action.payload.value;
+      return {
+        ...state,
+        walls: newWalls3
       }
     case UPDATE_SELECTED:
       const newSelected = initializeSheet();
