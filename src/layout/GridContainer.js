@@ -28,9 +28,7 @@ const initializeSheet = () => {
       curRow.push({
         row: i,
         col: j,
-        isWall: false,
-        isAnchor: false,
-        isEdge: false
+        isWall: false
       })
     }
     // add current row to rows array

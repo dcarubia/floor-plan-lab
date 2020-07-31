@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Tooltip, Paper, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Draggable from 'react-draggable';
-import { setAnchor, updateEdges, setCurShape, updateSelected, deleteObject } from '../actions/sheetActions';
+import { setAnchor, updateEdges, setCurShape, updateSelected, deleteObject, updateObject } from '../actions/sheetActions';
 import { setTool } from '../actions/toolActions';
 import { boxSize } from '../config';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -162,7 +162,7 @@ const useStyles = makeStyles({
   }
 });
 
-function ObjectEl({ id, type }) {
+function ObjectEl({ id, type, position }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(true);
@@ -171,7 +171,6 @@ function ObjectEl({ id, type }) {
   const scale = useSelector(state => state.sheet.scale);
   const containerRef = useRef();
   const editBarRef = useRef();
-
 
   const handleMouseDown = e => {
     if (!containerRef.current.contains(e.target) &&
@@ -390,6 +389,16 @@ function ObjectEl({ id, type }) {
   return (
     <>
       <Draggable
+        onDrag={(e, data) => {
+          dispatch(updateObject({
+            id,
+            position: {
+              x: data.x,
+              y: data.y
+            }
+          }))
+        }}
+        defaultPosition={position}
         bounds="parent"
         grid={[(boxSize + 1), (boxSize + 1)]}
         scale={1}

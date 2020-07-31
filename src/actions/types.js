@@ -14,3 +14,4 @@ export const SET_SCALE = 'SET_SCALE';
 export const ADD_OBJECT = 'ADD_OBJECT';
 export const DELETE_OBJECT = 'DELETE_OBJECT';
 export const SET_NEW_FILE = 'SET_NEW_FILE';
+export const UPDATE_OBJECT = 'UPDATE_OBJECT';

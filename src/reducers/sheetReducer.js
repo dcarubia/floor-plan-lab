@@ -11,7 +11,8 @@ import {
   SET_SCALE,
   ADD_OBJECT,
   DELETE_OBJECT,
-  SET_NEW_FILE
+  SET_NEW_FILE,
+  UPDATE_OBJECT
 } from '../actions/types';
 
 const initializeSheet = () => {
@@ -78,6 +79,18 @@ const sheetReducer = (state = initState, action) => {
       return {
         ...state,
         objects: state.objects.filter(el => el.id !== action.payload)
+      }
+    case UPDATE_OBJECT:
+      const newObjects = state.objects;
+      for (let i in newObjects) {
+        if (newObjects[i].id == action.payload.id) {
+          newObjects[i].position = action.payload.position;
+          break; // Stop the loop
+        }
+      }
+      return {
+        ...state,
+        objects: newObjects
       }
     case ADD_OBJECT:
       return {

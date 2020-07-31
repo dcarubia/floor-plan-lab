@@ -8,7 +8,7 @@ function ObjectContainer() {
   return (
     <>
       {objectArr.map(obj => {
-        return <Object key={obj.id} id={obj.id} type={obj.type} />;
+        return <Object key={obj.id} id={obj.id} type={obj.type} position={obj.position} />;
       })}
     </>
   );
