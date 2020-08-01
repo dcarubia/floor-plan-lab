@@ -46,7 +46,7 @@ function GridContainer() {
   const [sheet, setSheet] = useState(initializeSheet);
 
   return (
-    <div className={classes.container}>
+    <div id="grid-container" className={classes.container}>
 
       {sheet.map((row) =>
 

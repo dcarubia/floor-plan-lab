@@ -15,8 +15,8 @@ const useStyles = makeStyles({
     padding: '9px 12px 0px 0px',
     position: 'absolute',
     height: 36,
-    top: (boxSize + 1) * 2,
-    left: (boxSize + 1) * 2,
+    top: 0,
+    left: 0,
   },
   iconButton: {
     padding: '2px 2px 0px 2px',

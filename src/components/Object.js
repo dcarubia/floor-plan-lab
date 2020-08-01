@@ -147,8 +147,8 @@ import queenBed270 from '../images/objects/queenBed270.png';
 const useStyles = makeStyles({
   root: {
     position: 'absolute',
-    top: (boxSize + 1) * 2,
-    left: (boxSize + 1) * 2,
+    top: 0,
+    left: 0,
   },
   editBar: {
     position: 'fixed',

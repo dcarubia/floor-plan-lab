@@ -1,4 +1,5 @@
 import React from 'react';
+import { boxSize } from '../config';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab, ButtonGroup, Divider } from '@material-ui/core';
 import { addText, addObject } from '../actions/sheetActions';
@@ -7,6 +8,7 @@ import { setTool } from '../actions/toolActions';
 import { useDispatch } from 'react-redux';
 import { getState } from '../index';
 import LZUTF8 from 'lzutf8';
+import html2canvas from 'html2canvas';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall';
 import logo from '../images/logo.png';
@@ -413,8 +415,62 @@ function AppBar() {
     setToolbarTab(newValue);
   };
 
+  /**
+   * Calculates the image x & y offsets and width & height
+   */
+  const calImgCrop = (state) => {
+    const padding = 17 * 2;
+    let xOffset = 999999999;
+    let yOffset = 999999999;
+    let maxX = 0;
+    let maxY = 0;
+    state.objects.forEach(object => {
+      if (object.position.x < xOffset) { xOffset = object.position.x; }
+      if (object.position.x > maxX) { maxX = object.position.x; }
+      if (object.position.y < yOffset) { yOffset = object.position.y; }
+      if (object.position.y > maxY) { maxY = object.position.y; }
+    });
+    state.text.forEach(textBox => {
+      if (textBox.position.x < xOffset) { xOffset = textBox.position.x; }
+      if (textBox.position.x > maxX) { maxX = textBox.position.x; }
+      if (textBox.position.y < yOffset) { yOffset = textBox.position.y; }
+      if (textBox.position.y > maxY) { maxY = textBox.position.y; }
+    });
+    for (let row = 0; row < state.walls.length; row++) {
+      for (let col = 0; col < state.walls[0].length; col++) {
+        // check for a wall
+        if (state.walls[row][col] === true) {
+          // calc x & y offsets
+          const x = col * (boxSize + 1);
+          const y = row * (boxSize + 1);
+          if (x < xOffset) { xOffset = x; }
+          if (x + (boxSize + 1) > maxX) { maxX = x + (boxSize + 1); }
+          if (y < yOffset) { yOffset = y; }
+          if (y + (boxSize + 1) > maxY) { maxY = y + (boxSize + 1); }
+        }
+      }
+    }
+    return {
+      xOffset: Math.max(xOffset - padding, 0) + 54,
+      yOffset: Math.max(yOffset - padding, 0) + 64,
+      width: (maxX - xOffset) + padding * 2,
+      height: (maxY - yOffset) + padding * 2
+    }
+  }
+
   const saveFile = () => {
     const curState = getState().sheet;
+    const cropData = calImgCrop(curState);
+    // Create preview image
+    html2canvas(document.querySelector("#grid-container"), {
+      x: cropData.xOffset,
+      y: cropData.yOffset,
+      width: cropData.width,
+      height: cropData.height,
+    }).then(canvas => {
+      document.body.appendChild(canvas)
+    });
+    // Save file state
     const state = {
       scale: curState.scale,
       text: curState.text,
