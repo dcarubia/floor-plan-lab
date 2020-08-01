@@ -13,7 +13,9 @@ import {
   DELETE_OBJECT,
   SET_NEW_FILE,
   UPDATE_OBJECT,
-  SET_WALL
+  SET_WALL,
+  LOAD_FILE,
+  UPDATE_TEXT
 } from '../actions/types';
 
 const initializeSheet = () => {
@@ -72,7 +74,25 @@ const sheetReducer = (state = initState, action) => {
       }
     case SET_NEW_FILE:
       return {
-        ...initState
+        scale: {
+          ft: 1,
+          in: 0
+        },
+        curShape: null,
+        text: [],
+        objects: [],
+        walls: initializeWalls(),
+        anchor: null,
+        data: {
+          anchors: initializeSheet(),
+          edges: initializeSheet(),
+          selected: initializeSheet()
+        }
+      }
+    case LOAD_FILE:
+      return {
+        ...initState,
+        ...action.payload
       }
     case SET_CUR_SHAPE:
       return {
@@ -84,10 +104,27 @@ const sheetReducer = (state = initState, action) => {
         ...state,
         text: [...state.text, action.payload]
       }
+    case UPDATE_TEXT:
+      const newText = [...state.text];
+      for (let i in newText) {
+        if (newText[i].id === action.payload.id) {
+          if (action.payload.position) {
+            newText[i].position = action.payload.position;
+          }
+          if (action.payload.value) {
+            newText[i].value = action.payload.value;
+          }
+          break; // Stop the loop
+        }
+      }
+      return {
+        ...state,
+        text: newText
+      }
     case DELETE_TEXT:
       return {
         ...state,
-        text: state.text.filter(el => el !== action.payload)
+        text: state.text.filter(el => el.id !== action.payload)
       }
     case DELETE_OBJECT:
       return {

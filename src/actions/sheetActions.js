@@ -1,10 +1,10 @@
-import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT, SET_CUR_SHAPE, UPDATE_SELECTED, DELETE_WALLS, CREATE_WALLS, SET_SCALE, ADD_OBJECT, DELETE_OBJECT, SET_NEW_FILE, UPDATE_OBJECT, SET_WALL } from './types';
+import { SET_ANCHOR, UPDATE_EDGES, UPDATE_WALLS, ADD_TEXT, DELETE_TEXT, SET_CUR_SHAPE, UPDATE_SELECTED, DELETE_WALLS, CREATE_WALLS, SET_SCALE, ADD_OBJECT, DELETE_OBJECT, SET_NEW_FILE, UPDATE_OBJECT, SET_WALL, LOAD_FILE, UPDATE_TEXT } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
-export const addText = (type) => {
+export const addText = () => {
   return {
     type: ADD_TEXT,
-    payload: uuidv4()
+    payload: { id: uuidv4(), value: "", position: { x: 0, y: 0 } }
   }
 }
 
@@ -12,6 +12,14 @@ export const addObject = (type) => {
   return {
     type: ADD_OBJECT,
     payload: { id: uuidv4(), type, position: { x: 0, y: 0 } }
+  }
+}
+
+// @param file: { scale, walls, objects, text }
+export const loadFile = (file) => {
+  return {
+    type: LOAD_FILE,
+    payload: file
   }
 }
 
@@ -63,6 +71,14 @@ export const deleteText = (index) => {
   return {
     type: DELETE_TEXT,
     payload: index
+  }
+}
+
+// @param data: {id, position, value}
+export const updateText = (data) => {
+  return {
+    type: UPDATE_TEXT,
+    payload: { id: data.id, position: data.position, value: data.value }
   }
 }
 

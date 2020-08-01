@@ -16,3 +16,5 @@ export const DELETE_OBJECT = 'DELETE_OBJECT';
 export const SET_NEW_FILE = 'SET_NEW_FILE';
 export const UPDATE_OBJECT = 'UPDATE_OBJECT';
 export const SET_WALL = 'SET_WALL';
+export const LOAD_FILE = 'LOAD_FILE';
+export const UPDATE_TEXT = 'UPDATE_TEXT';

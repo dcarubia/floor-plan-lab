@@ -6,7 +6,7 @@ import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 import { useDispatch } from 'react-redux';
-import { deleteText } from '../actions/sheetActions';
+import { deleteText, updateText } from '../actions/sheetActions';
 import { boxSize } from '../config';
 
 const useStyles = makeStyles({
@@ -27,15 +27,18 @@ const useStyles = makeStyles({
   }
 });
 
-function TextBox({ id }) {
+function TextBox({ id, position, textValue }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(true);
-  const [textValue, setTextValue] = useState('');
   const containerRef = useRef();
 
+
   const handleChange = e => {
-    setTextValue(e.target.value);
+    dispatch(updateText({
+      id,
+      value: e.target.value
+    }))
   }
 
   const handleMouseDown = e => {
@@ -69,6 +72,16 @@ function TextBox({ id }) {
 
   return (
     <Draggable
+      onDrag={(e, data) => {
+        dispatch(updateText({
+          id,
+          position: {
+            x: data.x,
+            y: data.y
+          }
+        }))
+      }}
+      defaultPosition={position}
       handle='.handle'
       bounds="parent"
       grid={[(boxSize + 1), (boxSize + 1)]}

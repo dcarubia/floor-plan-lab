@@ -7,8 +7,8 @@ function TextContainer() {
 
   return (
     <>
-      {textArr.map(id => {
-        return <TextBox key={id} id={id} />;
+      {textArr.map(text => {
+        return <TextBox key={text.id} id={text.id} position={text.position} textValue={text.value} />;
       })}
     </>
   );

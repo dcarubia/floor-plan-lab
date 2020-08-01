@@ -2,10 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Menu, MenuItem, Paper, Modal, Tabs, Tab, ButtonGroup, Divider } from '@material-ui/core';
 import { addText, addObject } from '../actions/sheetActions';
-import { setAnchor, updateEdges, setCurShape, updateSelected, setNewFile } from '../actions/sheetActions';
+import { setAnchor, updateEdges, setCurShape, updateSelected, setNewFile, loadFile } from '../actions/sheetActions';
 import { setTool } from '../actions/toolActions';
 import { useDispatch } from 'react-redux';
 import { getState } from '../index';
+import LZUTF8 from 'lzutf8';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall';
 import logo from '../images/logo.png';
@@ -420,8 +421,10 @@ function AppBar() {
       objects: curState.objects,
       walls: curState.walls
     };
-    const stateJSON = JSON.stringify(state);
-    console.log(stateJSON);
+    const compressedJSON = LZUTF8.compress(JSON.stringify(state));
+    dispatch(loadFile(
+      JSON.parse(LZUTF8.decompress(compressedJSON))
+    ));
   }
 
   return (
