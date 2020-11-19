@@ -1,22 +1,19 @@
 # Floor Plan Lab
 A virtual graph paper sandbox with tools to easily create awesome floor plans.
 
-## Website
-[https://floorplanlab.com/](https://floorplanlab.com/)
+## Important
+This version is no longer maintained. As of 11/19/20 this repository will be archived and subsequent updates to this software will not be licensed under the MIT license. Floor Plan Lab will continue to exist and you can continue to use the product at [https://floorplanlab.com/](https://floorplanlab.com/).
 
 ## About
-Floor Plan Lab is an open source React app intended to be used as a tool to rapidly design floor plans. It uses a customizable snap-to-grid scale to automatically size objects such as doors, furniture, and appliances.
+Floor Plan Lab is a React app intended to be used as a tool to rapidly design floor plans. It uses a customizable snap-to-grid scale to automatically size objects such as doors, furniture, and appliances.
 
 <img src="https://github.com/dcarubia/floor-plan-lab/blob/master/FloorPlanLab_Screenshot_01.png" width="850">
-
-Floor Plan Lab is currently a beta version. Future updates will include an extended library of objects and add features such as save/export and dimensions.
 
 ## Built With
 
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
 * [Material-UI](https://material-ui.com/)
-* [react-cursor-position](https://www.npmjs.com/package/react-cursor-position)
 * [react-draggable](https://www.npmjs.com/package/react-draggable)
 
 ## Development Quick Start
